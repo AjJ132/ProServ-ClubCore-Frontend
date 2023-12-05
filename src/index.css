@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch */
+
+:root {
+  font-family: sans-serif,Inter, system-ui, Avenir, Helvetica, Arial;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+
+  --primary-color: #1F1F1F;   /* 60% of the usage */
+  --secondary-color: #F7F7F7; /* 30% of the usage */
+  --accent-color: #E26823;     /* 10% of the usage */
+
+  --tertiary-color: #a7a7a7;
+  --hover-color: #a7a7a71e;
+
+  --navbar-width: 10vw;
+  --navbar-width-colapsed: 80px;
+  --navbar-transition-duration: 0.3s;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+.logo {
+  height: 6rem;
+  padding: 1rem;
+  will-change: filter, height, padding;
+  transition: filter 300ms, height 300ms, padding 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #ffc629);
+}
+
+.logo-collapsed {
+  height: 3.2rem;
+  padding: 0; /* Adjust as needed */
+  will-change: filter, height, padding;
+  transition: filter 300ms, height 300ms, padding 300ms;
+}
+
+
+
+
+.vertical-stack{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity 100ms ease-in-out; /* Adjust duration and easing as needed */
+}
+
+.horizontal-stack{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  place-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
