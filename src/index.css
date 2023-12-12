@@ -18,9 +18,12 @@
   --accent-color: #E26823;     /* 10% of the usage */
 
   --tertiary-color: #a7a7a7;
+  --tertiary-color-translucent-1: rgba(167, 167, 167, 0.15);
+  --tertiary-color-translucent-2: rgba(167, 167, 167, 0.3);
+  
   --hover-color: #a7a7a71e;
 
-  --navbar-width: 10vw;
+  --navbar-width:275px;
   --navbar-width-colapsed: 80px;
   --navbar-transition-duration: 0.3s;
 
@@ -31,8 +34,21 @@
 }
 
 h1 {
-  font-size: 2.5rem;
-  font-weight: 500;
+  font-size: 2.125rem;
+  font-weight: 600;
+  line-height: 2.25rem;
+}
+
+h2{
+  font-size: 24px;
+  font-weight: 450;
+  line-height: 2rem;
+}
+
+h3{
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.75rem;
 }
 
 a {
@@ -63,9 +79,6 @@ a:hover {
   transition: filter 300ms, height 300ms, padding 300ms;
 }
 
-
-
-
 .vertical-stack{
   display: flex;
   flex-direction: column;
@@ -84,6 +97,16 @@ a:hover {
   width: 100%;
 }
 
+.horizontal-stack{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+
 body {
   margin: 0;
   display: flex;
@@ -93,15 +116,9 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -109,15 +126,26 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+.button-secondary{
+  border-radius: 16px;
+  padding: 0;
+  padding: 4px 10px 4px 12px;
+  
+  font-size: 13px;
+  line-height: 17px;
+  color : var(--primary-color);
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--tertiary-color-translucent-1);
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
 
-
+.section-border {
+  border: 1px solid var(--tertiary-color-translucent-2); /* A light gray border */
+  border-radius: 12px; /* Rounded corners */
+}
 
 @media (prefers-color-scheme: light) {
   :root {

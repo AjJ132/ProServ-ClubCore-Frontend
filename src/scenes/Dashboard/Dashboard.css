@@ -1,54 +1,73 @@
-/* src/components/Dashboard/Dashboard.css */
 
-.dashboard-wrapper {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--secondary-color);
-    
-    /* Add transition effect */
-    transition: margin-left var(--navbar-transition-duration) ease, width var(--navbar-transition-duration) ease;
 
-    width: calc(100vw - var(--navbar-width) ); /* Same as navbar width */
-    height: 100vh;
-   
-    color: black;
-  }
+.dashboard-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: var(--secondary-color);
+  width: 100%;
+  height: 100vh;
+  color: black;
 
-  .dashboard-wrapper.collapsed {
-    margin-left: var(--navbar-width-colapsed);
-    width: calc(100vw - var(--navbar-width-colapsed) );
-  }
-  
-  .dashboard-wrapper.expanded {
-    margin-left: var(--navbar-width);
-  }
-  
-  
-  .dashboard-content {
-    width: 100%;
-    height: 100vh;
+  border-top-left-radius: 16px;
+  margin-top: 8px;
+}
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+.dashboard-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 0;
+}
 
-    background-color: var(--secondary-color);
+.dashboard-tab{
+  width : 100%;
+}
 
-    padding: 2rem;
-  }
+.dashboard-body {
+  width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 20px;
+}
 
-  .dashboard-header{
-    width: 100%;
-    height: 10vh;
+.action-header{
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+}
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+.dashboard-quick-info{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
 
-    background-color: var(--secondary-color);
+.quick-info-column{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
 
-    padding: 2rem;
-  }
-  
+.quick-info-column h3{
+  color: var(--tertiary-color);
+}
+
+.feed-widget{
+  min-width: 480px;
+  max-width: 480px;
+}

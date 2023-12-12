@@ -7,16 +7,16 @@ import Navbar from './components/navbar/navbar';
 import './index.css';
 
 const App = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isOpen, setIsCollapsed] = useState(true);
 
   const toggleNavbar = () => {
-    setIsCollapsed(!isCollapsed);
+    setIsCollapsed(!isOpen);
   };
 
   return (
-    <div>
-      <Navbar isCollapsed={isCollapsed} toggleNavbar={toggleNavbar} />
-      <Dashboard isCollapsed={isCollapsed} />
+    <div className="main-page-wrapper">
+      <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />
+      <Dashboard isCollapsed={isOpen} />
     </div>
   );
 };
