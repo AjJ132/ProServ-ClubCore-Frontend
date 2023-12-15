@@ -4,12 +4,32 @@
   width: var(--navbar-width); /* Default width */
   height: 100vh;
   background-color: var(--primary-color);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: width var(--navbar-transition-duration) ease;
+  /* padding: 20px; */
+  display: grid;
+  grid-template-rows: 1fr 2fr 8fr 1fr;
+  transition: all var(--navbar-transition-duration) ease;
   color: var(--secondary-color);
+
+  margin-top: 8px;
+}
+
+.navbar div:nth-child(1){
+  grid-row: 1 ;
+}
+
+.navbar div:nth-child(2){
+  grid-row: 2 ;
+  padding: 20px;
+}
+
+.navbar div:nth-child(3){
+  grid-row: 3 ;
+  padding: 20px;
+}
+
+.navbar div:nth-child(4){
+  grid-row: 4 ;
+  padding: 20px;
 }
 
 .navbar .navbar-header {
@@ -30,6 +50,8 @@
 /* Collapsed navbar */
 .navbar.collapsed {
   width: var(--navbar-width-colapsed);
+  max-width: var(--navbar-width-colapsed);
+  min-width: var(--navbar-width-colapsed);
 }
 
 
@@ -65,5 +87,46 @@
     background-color: var(--hover-color); 
     color: var(--secondary-color);
 }
+
+
+.navbar-links-wrapper {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* changed from start to stretch to make sure anchors fill the width */
+}
+
+.navbar-links-wrapper-btn {
+  box-sizing: border-box; /* This ensures padding is included in the width */
+  text-decoration: none;
+  width: 100%; 
+  color: var(--secondary-color); 
+  padding: 8px 16px;
+  margin: 5px 0;
+  border-radius: 8px;
+  transition: background-color 0.1s ease;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  min-height: 40px;
+}
+.navbar-links-wrapper-btn.collapsed {
+}
+
+.navbar-links-wrapper-btn.open{
+
+}
+
+.navbar-links-wrapper a:hover {
+  background-color: var(--hover-color); 
+  color: var(--secondary-color);
+}
+
+
 
   

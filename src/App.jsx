@@ -17,6 +17,9 @@ const App = () => {
     <div className="main-page-wrapper">
       <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />
       <Dashboard isCollapsed={isOpen} />
+      {/* 
+        Implement Dashboard swapper here. npm install react-router-dom
+       */}
     </div>
   );
 };

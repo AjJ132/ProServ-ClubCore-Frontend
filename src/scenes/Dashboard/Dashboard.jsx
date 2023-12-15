@@ -20,7 +20,9 @@ const Dashboard = ({ isCollapsed }) => {
     <div className="dashboard-content">
         <div className="dashboard-header">
           <h1>Dashboard</h1>
+          <div className="line-divider mt-4"></div>
         </div>
+        
         <div className="dashboard-tab">
           <div className="dashboard-body">
             <div className='action-header section-border'>
@@ -50,17 +52,16 @@ const Dashboard = ({ isCollapsed }) => {
               <div className="quick-info-column ">
                 <div className="section-border flex flex-col items-center gap-4 w-full p-4">
                   <div className="flex flex-row items-start justify-between gap-2 w-full">
-                    <h2>My Events</h2>
+                    <h2>My Schedule</h2>
                     <a>See All</a>
                   </div>
                   <h3>No Events Today</h3>
                 </div>
               </div>
               <div className="quick-info-column section-border feed-widget">
-                <p>Feed</p>
               </div>
               <div className="quick-info-column section-border ">
-                <p>Messages</p>
+                <h2>Messages</h2>
               </div>
             </div>
           </div>
