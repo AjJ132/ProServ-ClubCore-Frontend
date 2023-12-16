@@ -17,8 +17,8 @@ const Dashboard = ({ isCollapsed }) => {
   const dateString = currentDate.toLocaleDateString('en-US', dateOptions);
 
   return (
-    <div className="dashboard-content">
-        <div className="dashboard-header">
+    <div className="page-content">
+        <div className="page-header">
           <h1>Dashboard</h1>
           <div className="line-divider mt-4"></div>
         </div>
@@ -37,12 +37,12 @@ const Dashboard = ({ isCollapsed }) => {
                   </h3>
                 </div>
               </div>
-              <div class="flex flex-row justify-start w-full gap-4">
-                <button class="button button-secondary flex flex-row items-center gap-1">
+              <div className="flex flex-row justify-start w-full gap-4">
+                <button className="button button-secondary flex flex-row items-center gap-1">
                   <FontAwesomeIcon icon={faMessage} />
                   Send Message
                 </button>
-                <button class="button button-secondary flex flex-row items-center gap-1">
+                <button className="button button-secondary flex flex-row items-center gap-1">
                   <FontAwesomeIcon icon={faCalendarDays} />
                   Add Event
                 </button>

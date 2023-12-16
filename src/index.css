@@ -152,16 +152,3 @@ button {
   border: 1px solid var(--tertiary-color-translucent-2); /* A light gray border */
   border-radius: 12px; /* Rounded corners */
 }
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}

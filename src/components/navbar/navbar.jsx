@@ -6,9 +6,12 @@ import ProfileHeader from '../profile-header/profile-header';
 import Navbar_Links from './navbar-links';
 import logo from '../../assets/temp-logo.png';
 import NavbarFooter from './navbar-footer';
+import { Link } from 'react-router-dom';
 import HamburgerBtn from '../Hamburger-btn/hamburger-btn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage, faCalendarDays, faHouse, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const Navbar = ({ isCollapsed, toggleNavbar }) => {
   return (
@@ -20,12 +23,21 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
             <div onClick={toggleNavbar}>
                 <HamburgerBtn isCollapsed={isCollapsed} />
             </div>
-            <a className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`} href='/'>
-                <FontAwesomeIcon icon={faHouse} />{isCollapsed && ' Dashboard'}
-            </a>
-            <a className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`} href='/calendar'>
-                <FontAwesomeIcon icon={faCalendarDays} />{isCollapsed && ' Calendar'}
-            </a>
+            <Link 
+    to="/" 
+    className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+>
+    <FontAwesomeIcon icon={faHouse} />
+    {isCollapsed && ' Dashboard'}
+</Link>
+<Link 
+    to="/calendar" 
+    className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+>
+    <FontAwesomeIcon icon={faCalendarDays} />
+    {isCollapsed && ' Calendar'}
+</Link>
+
             <a className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed  '}`} href='#messaging'>
                 <FontAwesomeIcon icon={faMessage} />{isCollapsed && ' Messaging'}
             </a>  
