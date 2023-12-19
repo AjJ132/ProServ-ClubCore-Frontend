@@ -1,8 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Signin-Signup.css'
 import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
+import { signin_service } from '../../services/signin-api-service';
+
 
 const Signin = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = async () => {
+        try {
+            const response = await signin_service(username, password);
+
+            //print response to console
+            console.log(response);
+        } catch (error) {
+            //print error to console
+            console.error(error);
+        }
+    };
+
+
     return (
         <div className='login-page'>
             <div className="login-modal">
@@ -13,14 +31,14 @@ const Signin = () => {
 
                 <div className="flex flex-row content-center justify-start gap-2 w-full pt-8">
                     <h2>Sign In</h2>
-                </div>
+                </div>  
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-8">
-                    <p>Username</p>
-                    <input type="text" placeholder="Email" className="login-input"/>
+                    <p>Email</p>
+                    <input type="text" placeholder="Email" className="login-input" onChange={(e) => setUsername(e.target.value)}/>
                 </div>
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">
                     <p>Password</p>
-                    <input type="password" placeholder="Password" className="login-input"/>
+                    <input type="password" placeholder="Password" className="login-input" onChange={(e) => setPassword(e.target.value)} />
                 </div>
 
                 <div className="flex flex-row content-center justify-start gap-2 w-full pt-2">
@@ -34,7 +52,7 @@ const Signin = () => {
 
 
                 <div className="flex flex-row content-center justify-center gap-2 w-full pt-14">
-                    <button className="login-btn">Sign In</button>
+                    <button className="login-btn" onClick={handleLogin}>Sign In</button>
                 </div>
 
                
