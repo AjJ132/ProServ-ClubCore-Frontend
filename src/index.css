@@ -15,11 +15,19 @@
 
   --primary-color: #1F1F1F;   /* 60% of the usage */
   --secondary-color: #F7F7F7; /* 30% of the usage */
-  --accent-color: #E26823;     /* 10% of the usage */
+  --accent-color: #006eff;     /* 10% of the usage */
 
   --tertiary-color: #a7a7a7;
   --tertiary-color-translucent-1: rgba(167, 167, 167, 0.15);
   --tertiary-color-translucent-2: rgba(167, 167, 167, 0.3);
+  --tertiary-color-translucent-3: rgba(167, 167, 167, 0.5);
+
+  --soft-gray: rgb(106, 106, 106);
+
+  /* Blueish link color*/
+  --link-color: #1a47e8;
+
+  --calendar-bg-offset: #eeeeee;
   
   --hover-color: #a7a7a71e;
 
@@ -40,7 +48,7 @@
 h1 {
   font-size: 2.125rem;
   font-weight: 600;
-  line-height: 2.25rem;
+  /* line-height: 2.25rem; */
 }
 
 h2{
@@ -60,7 +68,7 @@ a {
 }
 
 a:hover {
-  color:var(--accent-color);
+  color:var(-);
   cursor: pointer;
 }
 
@@ -151,4 +159,13 @@ button {
 .section-border {
   border: 1px solid var(--tertiary-color-translucent-2); /* A light gray border */
   border-radius: 12px; /* Rounded corners */
+}
+
+.link {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
 }

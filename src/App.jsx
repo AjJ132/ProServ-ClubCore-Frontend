@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Dashboard from './scenes/Dashboard/Dashboard';
+import Signin from './scenes/Signin-Signup/Signin';
+import Signup from './scenes/Signin-Signup/Signup';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Calendar from './scenes/Calendar/Calendar';
@@ -19,10 +21,11 @@ const App = () => {
   return (
     <Router>
       <div className="main-page-wrapper">
-        <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />
         <Routes>
-            <Route path="/" element={<Dashboard isCollapsed={isOpen} />} />
-            <Route path="/calendar" element={<Calendar isCollapsed={isOpen} />} />
+          <Route path="/" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard isCollapsed={isOpen} /></>} />
+          <Route path="/calendar" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Calendar isCollapsed={isOpen} /></>} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
     </Router>

@@ -24,26 +24,37 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
                 <HamburgerBtn isCollapsed={isCollapsed} />
             </div>
             <Link 
-    to="/" 
-    className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
->
-    <FontAwesomeIcon icon={faHouse} />
-    {isCollapsed && ' Dashboard'}
-</Link>
-<Link 
-    to="/calendar" 
-    className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
->
-    <FontAwesomeIcon icon={faCalendarDays} />
-    {isCollapsed && ' Calendar'}
-</Link>
+                  to="/" 
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  <FontAwesomeIcon icon={faHouse} />
+                  {isCollapsed && ' Dashboard'}
+              </Link>
+              <Link 
+                  to="/calendar" 
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  <FontAwesomeIcon icon={faCalendarDays} />
+                  {isCollapsed && ' Calendar'}
+              </Link>
 
             <a className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed  '}`} href='#messaging'>
                 <FontAwesomeIcon icon={faMessage} />{isCollapsed && ' Messaging'}
             </a>  
-            <a className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`} href='#Forms'>
-                <FontAwesomeIcon icon={faAlignLeft} />{isCollapsed && ' Forms'}
-            </a>
+            <Link 
+                  to="/signin" 
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  <FontAwesomeIcon icon={faCalendarDays} />
+                  {isCollapsed && ' Signin'}
+              </Link>
+              <Link 
+                  to="/signup" 
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  <FontAwesomeIcon icon={faCalendarDays} />
+                  {isCollapsed && ' Signup'}
+              </Link>
         </div>
 
       <NavbarFooter isCollapsed={isCollapsed} />

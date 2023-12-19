@@ -15,9 +15,10 @@ const Navbar_Links = ({ isCollapsed }) => {
         <a className='navbar-links-wrapper-btn' href='#messaging'>
             <FontAwesomeIcon icon={faMessage} />{isCollapsed && ' Messaging'}
         </a>
-        <a className='navbar-links-wrapper-btn' href='#Forms'>
-            <FontAwesomeIcon icon={faAlignLeft} />{isCollapsed && ' Forms'}
+        <a className='navbar-links-wrapper-btn' href='#signin'>
+            <FontAwesomeIcon icon={faAlignLeft} />{isCollapsed && ' Signin'}
         </a>
+        
     </div> 
   );
 };

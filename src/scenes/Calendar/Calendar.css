@@ -27,5 +27,5 @@
 }
 
 .calendar-bg-offset{
-    background-color: var(--tertiary-color-translucent-2);
+    background-color: var(--calendar-bg-offset);
 }

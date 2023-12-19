@@ -18,9 +18,15 @@ const Calendar = () => {
                 <div className="calendar-quick-info section-border p-4">
                     <h2>Coming Up</h2>
                     <div className="line-divider"></div>
-                    <h3>Practice</h3>
-                    <h3>Meet</h3>
-                    <h3>Practice</h3>
+                    <div className="w-full flex flex-row justify-between">
+                        <h3>Meet</h3>
+                        <a className="link">View</a>
+                    </div>
+                    <div className="w-full flex flex-row justify-between">
+                        <h3>Practice</h3>
+                        <a className="link">View</a>
+                    </div>
+                    
                 </div>
             </div>
         </div>
