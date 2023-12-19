@@ -169,3 +169,29 @@ button {
 .link:hover {
   text-decoration: underline;
 }
+
+
+input[type="checkbox"] {
+  width: 22px; /* Adjust the width as needed */
+  height: 22px; /* Adjust the height as needed */
+  cursor: pointer;
+  appearance: auto;
+  background-color: white; /* White background */
+  border: 2px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+}
+
+input[type="checkbox"]:checked {
+  background-color: white;
+  border: 2px solid var(--accent-color); /* Blue border for checked state */
+}
+
+input[type="checkbox"]:focus {
+  outline: none; /* Removes outline on focus */
+  border-color: var(--accent-color); /* Highlight color when focused */
+}
+
+.test{
+
+}
+

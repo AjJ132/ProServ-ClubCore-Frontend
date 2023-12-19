@@ -27,6 +27,11 @@ const Signin = () => {
                     <p>Forgot password? <a href="/forgot-password">Reset Password</a></p>
                 </div>
 
+                <div className="flex flex-row content-center justify-start gap-2 w-full pt-4">
+                    <p>Keep me signed in</p>
+                    <input type="checkbox" className="test"/>
+                </div>
+
 
                 <div className="flex flex-row content-center justify-center gap-2 w-full pt-14">
                     <button className="login-btn">Sign In</button>
