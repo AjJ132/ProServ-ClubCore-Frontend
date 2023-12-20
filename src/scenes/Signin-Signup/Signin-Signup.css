@@ -43,8 +43,16 @@
     z-index: 1;
 }
 
+.login-modal strong{
+  color: red;
+}
+
 .register-modal{
     height: fit-content;
+}
+
+.register-modal ul {
+  list-style-position: inside; /* Moves the bullet points inside the content flow */
 }
 
 .login-modal h1 {
@@ -56,6 +64,12 @@
 .login-modal h2 {
     font-size: 26px;
     font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  .login-modal h3 {
+    font-size: 20px;
+    font-weight: 550;
     color: var(--primary-color);
   }
 
@@ -83,7 +97,7 @@
     border-radius: 6px;
     border: 1px solid var(--tertiary-color-translucent-3);
     background-color: var(--secondary-color);
-    color: var(--tertiary-color);
+    color: var(--primary-color);
     font-size: 1rem;
     font-weight: 500;
     font-family: inherit;
@@ -103,8 +117,6 @@
     transition: border-color 0.25s;
   }
 
-
-
   .overlay {
     position: fixed; /* Stay in place */
     z-index: 2; /* Sit behind the modal */
@@ -122,7 +134,7 @@
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Adjust for exact centering */
     width: 300px; /* Adjust width as needed */
-    height: 200px; /* Adjust height as needed */
+    height: fit-content; /* Adjust height as needed */
     display: flex;
     flex-direction: column;
     justify-content: center;

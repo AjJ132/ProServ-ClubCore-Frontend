@@ -5,6 +5,7 @@ import './App.css'
 import Dashboard from './scenes/Dashboard/Dashboard';
 import Signin from './scenes/Signin-Signup/Signin';
 import Signup from './scenes/Signin-Signup/Signup';
+import Missing_Names from './scenes/Signin-Signup/missing-names';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Calendar from './scenes/Calendar/Calendar';
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/calendar" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Calendar isCollapsed={isOpen} /></>} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/update-names" element={<Missing_Names />} />
         </Routes>
       </div>
     </Router>

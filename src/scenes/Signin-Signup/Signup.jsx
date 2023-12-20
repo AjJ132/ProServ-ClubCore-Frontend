@@ -6,16 +6,71 @@ import {useNavigate} from 'react-router-dom';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [confirmPassword, setConfirm] = useState('');
-    const [teamCode, setTeamCode] = useState('');
 
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');   
 
     const navigate = useNavigate();
 
+    const emailRegex = /^\S+@\S+\.\S+$/;
+        const passwordRegex = /^[a-zA-Z0-9]{8,}$/;
+
+        const [password, setPassword] = useState('');
+        const [lengthValid, setLengthValid] = useState(false);
+        const [lowercaseValid, setLowercaseValid] = useState(false);
+        const [uppercaseValid, setUppercaseValid] = useState(false);
+        const [numberValid, setNumberValid] = useState(false);
+        const [passwordsMatch, setPasswordsMatch] = useState(false);
+
+        const handlePasswordChange = (e) => {
+            const value = e.target.value;
+            setPassword(value);
+            setLengthValid(value.length >= 8);
+            setLowercaseValid(/[a-z]/.test(value));
+            setUppercaseValid(/[A-Z]/.test(value));
+            setNumberValid(/\d/.test(value));
+
+            // If the confirm password field is filled out, check if the passwords match
+            if (confirmPassword) {
+                setPasswordsMatch(value === confirmPassword);
+            }
+
+            handleConfirmPasswordChange(e);
+        };
+
+        const handleConfirmPasswordChange = (e) => {
+            const value = e.target.value;
+            setConfirm(value);
+            setPasswordsMatch(value === password);
+        };
+
     const handleSignup = async () => {
+
+        if (!username || !password || !confirmPassword) {
+            setModalMessage('Email and password fields are required.');
+            setShowModal(true);
+            return;
+        }
+    
+        if (!emailRegex.test(username)) {
+            setModalMessage('Invalid email format.');
+            setShowModal(true);
+            return;
+        }
+    
+        if (!passwordRegex.test(password)) {
+            setModalMessage('Invalid password. Passwords must contain at least one lowercase letter, one uppercase letter, and one number');
+            setShowModal(true);
+            return;
+        }
+    
+        if (password !== confirmPassword) {
+            setModalMessage('Password and confirm password do not match.');
+            setShowModal(true);
+            return;
+        }
+
         try {
             const response = await signup_service(username, password, confirmPassword);
     
@@ -28,8 +83,8 @@ const Signup = () => {
 
                 console.log('Login successful:', response);
 
-                // Redirect the user to the dashboard
-                navigate('/');
+                // Redirect the user to the page to collect their name and team code
+                navigate('/update-names');
             } else if (response && response.status === 409) {
             
                 console.log('Username already exists:', response);
@@ -53,8 +108,8 @@ const Signup = () => {
                 <>
                     <div className="overlay"></div>
                     <div className="duplicate-email-modal">
-                        <p>Email already exists. Please try another one or <a href="/signin">Sign In</a></p>
-                        <button onClick={() => setShowModal(false)}>Close</button>
+                        <p>{modalMessage}</p>
+                        <button onClick={() => setShowModal(false)}>Ok!</button>
                     </div>
                 </>
             }
@@ -68,17 +123,31 @@ const Signup = () => {
                     <h2>Sign Up</h2>
                 </div>
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-8">
-                    <p>Email</p>
+                    <p>Email<strong>*</strong></p>
                     <input type="text" placeholder="Email" className="login-input" onChange={(e) => setUsername(e.target.value)}/>
                 </div>
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">
-                    <p>Password</p>
-                    <input type="password" placeholder="Password" className="login-input" onChange={(e) => setPassword(e.target.value)}/>
+                    <p>Password<strong>*</strong></p>
+                    <input type="password" placeholder="Password" className="login-input" onChange={handlePasswordChange}/>
+                </div>
+                <div className="flex flex-row content-center justify-start gap-2 w-full pt-2">
+                    <ul className="flex flex-col content-center justify-start gap-2 w-full pt-2" style={{ listStyleType: 'disc' }}>
+                        <li style={{ color: lengthValid ? 'green' : 'gray' }}>At least 8 characters</li>
+                        <li style={{ color: lowercaseValid ? 'green' : 'gray' }}>Contains lowercase letter</li>
+                        <li style={{ color: uppercaseValid ? 'green' : 'gray' }}>Contains uppercase letter</li>
+                        <li style={{ color: numberValid ? 'green' : 'gray' }}>Contains a number</li>
+                    </ul>
                 </div>
 
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">
-                    <p>Confirm Password</p>
-                    <input type="password" placeholder="Confirm Password" className="login-input" onChange={(e) => setConfirm(e.target.value)}/>
+                    <p>Confirm Password<strong>*</strong></p>
+                    <input type="password" placeholder="Confirm Password" className="login-input" onChange={handleConfirmPasswordChange}/>
+                </div>
+
+                <div className="flex flex-row content-center justify-start gap-2 w-full pt-2">
+                    <ul className="flex flex-col content-center justify-start gap-2 w-full pt-2" style={{ listStyleType: 'disc' }}>
+                        <li style={{ color: passwordsMatch ? 'green' : 'gray' }}>Passwords match</li>
+                    </ul>
                 </div>
 
                 {/* <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">

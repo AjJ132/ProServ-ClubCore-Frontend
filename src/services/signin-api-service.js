@@ -51,6 +51,9 @@ export const signup_service = async (email, password, confirmPassword) => {
     }
 };
 
+export const assign_missing_user_names = async (user_email, first_name, last_name) => {
+};
+
 
 
 

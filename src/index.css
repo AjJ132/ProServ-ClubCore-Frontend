@@ -86,6 +86,22 @@ a:hover {
   margin-top: 24px;
 }
 
+.primary-button {
+  display: block;
+  width: 100px;
+  height: 30px;
+  margin: 20px auto 0;
+  background-color: var(--accent-color); /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
 .vertical-stack{
   display: flex;
   flex-direction: column;

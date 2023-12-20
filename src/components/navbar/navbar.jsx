@@ -55,6 +55,13 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
                   <FontAwesomeIcon icon={faCalendarDays} />
                   {isCollapsed && ' Signup'}
               </Link>
+              <Link 
+                  to="/update-names" 
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  <FontAwesomeIcon icon={faCalendarDays} />
+                  {isCollapsed && ' Missing Names'}
+              </Link>
         </div>
 
       <NavbarFooter isCollapsed={isCollapsed} />

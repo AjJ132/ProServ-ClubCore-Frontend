@@ -39,11 +39,11 @@ const Signin = () => {
                     <h2>Sign In</h2>
                 </div>  
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-8">
-                    <p>Email</p>
+                    <p>Email<strong>*</strong></p>
                     <input type="text" placeholder="Email" className="login-input" onChange={(e) => setUsername(e.target.value)}/>
                 </div>
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">
-                    <p>Password</p>
+                    <p>Password<strong>*</strong></p>
                     <input type="password" placeholder="Password" className="login-input" onChange={(e) => setPassword(e.target.value)} />
                 </div>
 
