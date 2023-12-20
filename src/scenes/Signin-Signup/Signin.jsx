@@ -12,8 +12,14 @@ const Signin = () => {
         try {
             const response = await signin_service(username, password);
 
-            //print response to console
+            //print value of response to console
             console.log(response);
+
+            if (response) {
+                console.log('Login successful:', response);
+            } else {
+                console.log('Login failed:', response);
+            }
         } catch (error) {
             //print error to console
             console.error(error);

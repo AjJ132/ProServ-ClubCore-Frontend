@@ -17,7 +17,7 @@ const Signup = () => {
 
     const handleSignup = async () => {
         try {
-            const response = await signup_service(username, password, teamCode);
+            const response = await signup_service(username, password, confirmPassword);
     
             // Check for specific response scenarios
             if (response && response.status === 200) {
@@ -78,13 +78,13 @@ const Signup = () => {
 
                 <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">
                     <p>Confirm Password</p>
-                    <input type="password" placeholder="Confirm Password" className="login-input"/>
+                    <input type="password" placeholder="Confirm Password" className="login-input" onChange={(e) => setConfirm(e.target.value)}/>
                 </div>
 
-                <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">
+                {/* <div className="flex flex-col content-center justify-start gap-0 w-full pt-6">
                     <p>Team Code (Optional)</p>
                     <input type="password" placeholder="Team Code Ex: (ABCD123)" className="login-input" onChange={(e) => setTeamCode(e.target.value)}/>
-                </div>
+                </div> */}
 
                 <div className="flex flex-row content-center justify-center gap-2 w-full pt-14">
                     <button className="login-btn" onClick={handleSignup}>Sign Up</button>

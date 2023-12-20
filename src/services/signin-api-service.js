@@ -3,10 +3,7 @@ const API_URL = import.meta.env.VITE_ClubCore_Server_API;
 
 export const signin_service = async (username, password) => {
     try {
-        //print address to console
-        console.log(`${API_URL}/signin`);
-
-        const response = await fetch(`${API_URL}/signin`, {
+        const response = await fetch(`${API_URL}/auth/signin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -14,24 +11,25 @@ export const signin_service = async (username, password) => {
             body: JSON.stringify({ username, password })
         });
         if (!response.ok) {
-            throw new Error('--');
+            return false;
         }
-        return await response.json();
+        return true;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
+        throw error;
     }
 };
 
-export const signup_service = async (username, password, teamCode) => {
+export const signup_service = async (email, password, confirmPassword) => {
     try {
-        console.log(`${API_URL}/signup`);
+        console.log('Confirm password: ', confirmPassword );
 
-        const response = await fetch(`${API_URL}/signup`, {
+        const response = await fetch(`${API_URL}/auth/signup`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+            headers: {  
+                'Content-Type': 'application/json'  
             },
-            body: JSON.stringify({ username, password, teamCode })
+            body: JSON.stringify({ email, password, confirmPassword})
         });
 
         if (response.status === 409) {
