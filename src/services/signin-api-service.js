@@ -34,7 +34,7 @@ export const signup_service = async (email, password, confirmPassword) => {
 
         if (response.status === 409) {
             console.log('Username already exists');
-            return { success: false, message: 'Username already exists' };
+            return 409;
         }
 
         if (!response.ok) {
@@ -42,16 +42,34 @@ export const signup_service = async (email, password, confirmPassword) => {
             throw new Error('Network response was not ok');
         }
 
-        console.log('Signup successful');
-        const data = await response.json();
-        return { success: true, data };
+        return 200;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         throw error;
     }
 };
 
-export const assign_missing_user_names = async (user_email, first_name, last_name) => {
+export const assign_missing_user_names = async (Email, FirstName, LastName, TeamCode) => {
+    try{
+        const response = await fetch(`${API_URL}/auth/update-user-info`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ Email, FirstName, LastName, TeamCode})
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        return true;
+
+    }
+    catch(error){
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
 };
 
 

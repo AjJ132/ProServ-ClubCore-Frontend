@@ -75,17 +75,17 @@ const Signup = () => {
             const response = await signup_service(username, password, confirmPassword);
     
             // Check for specific response scenarios
-            if (response && response.status === 200) {
-                const token = response.data.token; // Adjust this based on your response structure
+            if (response == 200) {
+                console.log('Signup successful. Saving cookie');
+               
+                //store email in local storage
+                localStorage.setItem('email', username);
 
-                // Set the cookie
-                document.cookie = `authToken=${token}; path=/; max-age=3600; secure; HttpOnly`;
-
-                console.log('Login successful:', response);
-
-                // Redirect the user to the page to collect their name and team code
+                console.log('Redirecting to update names page');
                 navigate('/update-names');
-            } else if (response && response.status === 409) {
+                
+
+            } else if (response == 409) {
             
                 console.log('Username already exists:', response);
                 // Display error message to the user on the frontend
