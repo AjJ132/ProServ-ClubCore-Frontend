@@ -31,3 +31,35 @@ export const get_user_info = async () => {
         throw error;
     }
 };
+
+export const update_user_names = async (First_Name, Last_Name) => {
+    try {
+        const response = await http_context(`${API_URL}/Users/update-users-names`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },  
+            credentials: 'include',
+            body: JSON.stringify({
+                email: "",
+                first_name: First_Name,
+                last_name: Last_Name,
+                club_id: "",
+                club_name: ""
+            })
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        //save new names to local storage
+        localStorage.setItem('first_name', First_Name);
+        localStorage.setItem('last_name', Last_Name);
+        
+        //retur first, last names and club name
+        return true;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}

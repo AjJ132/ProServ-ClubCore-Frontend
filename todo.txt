@@ -6,3 +6,7 @@
 //P3 set navbar heights to fixed heigths to prevent moving and resizing. 
 
 //P3 Create own styling
+
+//P3 ensure that updating settings goes through proper regexes and validations
+
+//P2 if the server isnt running and you refresh the page the validate_session API call fails and doesnt navigate the user to the signin page. Either this needs to remain the same or it needs to send  the user to a signin or service is down page. 
