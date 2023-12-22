@@ -2,10 +2,11 @@
 
 //Service for signin and signup operations
 const API_URL = import.meta.env.VITE_ClubCore_Server_API;
+import { http_context } from './http-context.js';
 
 export const signin_service = async (email, password) => {
     try {
-        const response = await fetch(`${API_URL}/login?useCookies=true`, {
+        const response = await http_context(`${API_URL}/login?useCookies=true`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,7 +27,7 @@ export const signin_service = async (email, password) => {
 export const signup_service = async (email, password) => {
     try {
 
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await http_context(`${API_URL}/register`, {
             method: 'POST',
             headers: {  
                 'Content-Type': 'application/json'  
@@ -53,7 +54,7 @@ export const signup_service = async (email, password) => {
 
 export const assign_missing_user_names = async (Email, FirstName, LastName, TeamCode) => {
     try{
-        const response = await fetch(`${API_URL}/auth/update-user-info`, {
+        const response = await http_context(`${API_URL}/auth/update-user-info`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -77,7 +78,7 @@ export const assign_missing_user_names = async (Email, FirstName, LastName, Team
 export const validate_session = async () => {
     try{
         const API_URL = import.meta.env.VITE_ClubCore_Server_API;
-        const response = await fetch(`${API_URL}/auth/validate-session`, {
+        const response = await http_context(`${API_URL}/auth/validate-session`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -100,7 +101,7 @@ export const validate_session = async () => {
 
 export const test_api = async () => {
     try {
-        const response = await fetch(`${API_URL}/WeatherForecast`, {
+        const response = await http_context(`${API_URL}/WeatherForecast`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

@@ -4,7 +4,7 @@ import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
 import { signin_service, validate_session } from '../../services/signin-api-service';
 import {useNavigate} from 'react-router-dom';
 
-//FIXME: Figure out why the validate_session function is getting called twice
+//P1: Figure out why the validate_session function is getting called twice
 
 
 const Signin = () => {

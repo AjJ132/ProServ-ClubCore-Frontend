@@ -11,7 +11,7 @@ import HamburgerBtn from '../Hamburger-btn/hamburger-btn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage, faCalendarDays, faHouse, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
 import { test_api, validate_session } from '../../services/signin-api-service';
-//TODO remove all test code
+//P3 remove all test code
 
 
 const Navbar = ({ isCollapsed, toggleNavbar }) => {

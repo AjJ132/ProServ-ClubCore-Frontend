@@ -1,46 +1,14 @@
 // src/components/Dashboard/Dashboard.jsx
 
 import React, { useEffect } from 'react';
-import Navbar from '../../components/navbar/navbar';
 import './Dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faMessage } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
-import { validate_session } from '../../services/signin-api-service';
 
 
 const Dashboard = ({ isCollapsed }) => {
   // Create a new Date object for the current date
   const currentDate = new Date();
-
-  const navigate = useNavigate();
-
-  useEffect(() => { 
-    const fetchSession = async () => {
-      try{
-          const response = await validate_session();
-  
-          if (!response) {
-              console.log('Session invalid. Please login.');
-              navigate('/signin');
-              return;
-          }
-          else{
-            console.log('Session valid:', response);
-          }
-  
-          return;
-      }
-      catch(error){
-          console.error('There was a problem with the fetch operation:', error);
-          throw error;
-      }
-  }
-
-  fetchSession();
-
-   
-  }, []);
 
   // Options for formatting the date
   const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -60,7 +28,8 @@ const Dashboard = ({ isCollapsed }) => {
             <div className='action-header section-border'>
               <div className="flex justify-between items-center w-full">
                 <h2>
-                  Welcome back, AJ Johnson
+                  {/* Get first and last name from local storage*/} 
+                  Welcome back, {localStorage.getItem('first_name')} {localStorage.getItem('last_name')}!
                 </h2>
                 <div className="flex flex-row gap-2 items-center">
                   <FontAwesomeIcon icon={faCalendarDays} />

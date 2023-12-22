@@ -1,0 +1,6 @@
+//P2 fix missing cookie when registering. 
+    //README maybe can fix this by doing an auto sign in upon registering. Might have to alter the register logic. 
+    //README maybe swagger will show that you can use ?useCookies=true
+
+
+//P3 set navbar heights to fixed heigths to prevent moving and resizing. 

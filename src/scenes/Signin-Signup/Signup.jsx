@@ -14,13 +14,14 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const emailRegex = /^\S+@\S+\.\S+$/;
-        const passwordRegex = /^[a-zA-Z0-9]{8,}$/;
+        const passwordRegex = /^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
         const [password, setPassword] = useState('');
         const [lengthValid, setLengthValid] = useState(false);
         const [lowercaseValid, setLowercaseValid] = useState(false);
         const [uppercaseValid, setUppercaseValid] = useState(false);
         const [numberValid, setNumberValid] = useState(false);
+        const [specialCharacter, setSpecialCharacter] = useState(false);
         const [passwordsMatch, setPasswordsMatch] = useState(false);
 
         const handlePasswordChange = (e) => {
@@ -30,6 +31,7 @@ const Signup = () => {
             setLowercaseValid(/[a-z]/.test(value));
             setUppercaseValid(/[A-Z]/.test(value));
             setNumberValid(/\d/.test(value));
+            setSpecialCharacter(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value));
 
             // If the confirm password field is filled out, check if the passwords match
             if (confirmPassword) {
@@ -136,6 +138,8 @@ const Signup = () => {
                         <li style={{ color: lowercaseValid ? 'green' : 'gray' }}>Contains lowercase letter</li>
                         <li style={{ color: uppercaseValid ? 'green' : 'gray' }}>Contains uppercase letter</li>
                         <li style={{ color: numberValid ? 'green' : 'gray' }}>Contains a number</li>
+                        <li style={{ color: specialCharacter ? 'green' : 'gray' }}>Contains a special character</li>
+                        {/* P2 update password requirements */}
                     </ul>
                 </div>
 

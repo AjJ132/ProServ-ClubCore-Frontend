@@ -7,6 +7,8 @@ import Signin from './scenes/Signin-Signup/Signin';
 import Signup from './scenes/Signin-Signup/Signup';
 import Missing_Names from './scenes/Signin-Signup/missing-names';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { validate_session } from './services/signin-api-service';
+import { get_user_info } from './services/user-info-service';
 
 
 import Calendar from './scenes/Calendar/Calendar';
@@ -20,12 +22,41 @@ const App = () => {
     setIsCollapsed(!isOpen);
   };
 
+  useEffect(() => { 
+    const fetchSession = async () => {
+      try{
+          const response = await validate_session();
+  
+          if (!response) {
+              console.log('Session invalid. Please login.');
+              navigate('/signin');
+              return;
+          }
+          else{
+            console.log('Session valid:', response);
+            
+            //data from API call will be stored in local stoarge
+            await get_user_info();
+          }
+  
+          return;
+      }
+      catch(error){
+          console.error('There was a problem with the fetch operation:', error);
+          throw error;
+      }
+  }
+
+  fetchSession();
+
+   
+  }, []);
+
 
   return (
     <Router>
       <div className="main-page-wrapper">
         <Routes>
-          
           <Route path="/" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard isCollapsed={isOpen} /></>} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/calendar" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Calendar isCollapsed={isOpen} /></>} />

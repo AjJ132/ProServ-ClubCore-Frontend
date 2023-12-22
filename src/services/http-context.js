@@ -1,3 +1,18 @@
-//TODO Implement custom http context that redirects 401 traffic to login page. Check ChatGPT for previous code example
-
-//TODO check the Todo tree extension for reminders. 
+export const http_context = async (url, options) => {
+    try {
+        const response = await fetch(url, options);
+        if (response.status === 401) {
+            // Redirect to signin page
+            console.log('Not authorized!')
+            window.location.href = '/';
+            return null;
+        }
+        if (!response.ok) {
+            throw new Error('HTTP Context: Throwing error');
+        }
+        return response;
+    } catch (error) {
+        console.error('HTTP Context Error Thrown: ', error);
+        throw error;
+    }
+};
