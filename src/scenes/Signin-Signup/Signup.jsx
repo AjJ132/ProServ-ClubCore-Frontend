@@ -72,7 +72,7 @@ const Signup = () => {
         }
 
         try {
-            const response = await signup_service(username, password, confirmPassword);
+            const response = await signup_service(username, password);
     
             // Check for specific response scenarios
             if (response == 200) {
@@ -162,7 +162,7 @@ const Signup = () => {
                
 
                 <div className="flex flex-row content-center justify-center gap-2 w-full pt-14">
-                    <p>Already have an account? <a href="/signin">Sign In</a></p>
+                    <p>Already have an account? <a href="/">Sign In</a></p>
                 </div>
 
                 

@@ -1,14 +1,17 @@
+
+
 //Service for signin and signup operations
 const API_URL = import.meta.env.VITE_ClubCore_Server_API;
 
-export const signin_service = async (username, password) => {
+export const signin_service = async (email, password) => {
     try {
-        const response = await fetch(`${API_URL}/auth/signin`, {
+        const response = await fetch(`${API_URL}/login?useCookies=true`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password })
+            credentials: 'include',
+            body: JSON.stringify({ email, password })
         });
         if (!response.ok) {
             return false;
@@ -20,16 +23,15 @@ export const signin_service = async (username, password) => {
     }
 };
 
-export const signup_service = async (email, password, confirmPassword) => {
+export const signup_service = async (email, password) => {
     try {
-        console.log('Confirm password: ', confirmPassword );
 
-        const response = await fetch(`${API_URL}/auth/signup`, {
+        const response = await fetch(`${API_URL}/register`, {
             method: 'POST',
             headers: {  
                 'Content-Type': 'application/json'  
             },
-            body: JSON.stringify({ email, password, confirmPassword})
+            body: JSON.stringify({ email, password})
         });
 
         if (response.status === 409) {
@@ -71,6 +73,52 @@ export const assign_missing_user_names = async (Email, FirstName, LastName, Team
         throw error;
     }
 };
+
+export const validate_session = async () => {
+    try{
+        const API_URL = import.meta.env.VITE_ClubCore_Server_API;
+        const response = await fetch(`${API_URL}/auth/validate-session`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        return true;
+    }
+    catch(error){
+        console.error('There was a problem with the fetch operation:', error);
+        return false;
+    }
+}
+
+
+export const test_api = async () => {
+    try {
+        const response = await fetch(`${API_URL}/WeatherForecast`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            console.log('Network response was not ok');
+            return false;
+        }
+        console.log("Success");
+        return true;
+    } catch (error) {
+        console.error('There was a problem with the test fetch operation:', error);
+        throw error;
+    }
+}
+
 
 
 

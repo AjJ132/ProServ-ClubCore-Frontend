@@ -1,12 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Signin-Signup.css'
 import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
-import { signin_service } from '../../services/signin-api-service';
+import { signin_service, validate_session } from '../../services/signin-api-service';
+import {useNavigate} from 'react-router-dom';
+
+//FIXME: Figure out why the validate_session function is getting called twice
 
 
 const Signin = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
@@ -17,6 +22,9 @@ const Signin = () => {
 
             if (response) {
                 console.log('Login successful:', response);
+                //redirect to home page
+                navigate('/');
+
             } else {
                 console.log('Login failed:', response);
             }
@@ -25,6 +33,16 @@ const Signin = () => {
             console.error(error);
         }
     };
+
+    const handleTest = async () => {
+        try{
+            const response = await test_api(username, password);
+
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
 
 
     return (
@@ -66,9 +84,6 @@ const Signin = () => {
                 <div className="flex flex-row content-center justify-center gap-2 w-full pt-14">
                     <p>Don't have an account? <a href="/signup">Sign Up</a></p>
                 </div>
-
-                
-                
             </div>
         </div>
     );

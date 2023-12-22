@@ -1,14 +1,46 @@
 // src/components/Dashboard/Dashboard.jsx
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../components/navbar/navbar';
 import './Dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faMessage } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import { validate_session } from '../../services/signin-api-service';
+
 
 const Dashboard = ({ isCollapsed }) => {
   // Create a new Date object for the current date
   const currentDate = new Date();
+
+  const navigate = useNavigate();
+
+  useEffect(() => { 
+    const fetchSession = async () => {
+      try{
+          const response = await validate_session();
+  
+          if (!response) {
+              console.log('Session invalid. Please login.');
+              navigate('/signin');
+              return;
+          }
+          else{
+            console.log('Session valid:', response);
+          }
+  
+          return;
+      }
+      catch(error){
+          console.error('There was a problem with the fetch operation:', error);
+          throw error;
+      }
+  }
+
+  fetchSession();
+
+   
+  }, []);
 
   // Options for formatting the date
   const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
