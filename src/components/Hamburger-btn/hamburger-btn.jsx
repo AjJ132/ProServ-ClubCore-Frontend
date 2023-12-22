@@ -2,7 +2,6 @@ import React from 'react';
 import './hamburger-btn.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faBars } from '@fortawesome/free-solid-svg-icons';
-import '../navbar/navbar-links.css';
 
 const HamburgerBtn = ({ isCollapsed }) => {
   return (

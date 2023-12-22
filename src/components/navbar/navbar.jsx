@@ -3,7 +3,6 @@
 import React from 'react';
 import './Navbar.css';
 import ProfileHeader from '../profile-header/profile-header';
-import Navbar_Links from './navbar-links';
 import logo from '../../assets/temp-logo.png';
 import NavbarFooter from './navbar-footer';
 import { Link } from 'react-router-dom';

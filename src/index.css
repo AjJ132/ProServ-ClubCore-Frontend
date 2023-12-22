@@ -22,7 +22,10 @@
   --tertiary-color-translucent-2: rgba(167, 167, 167, 0.3);
   --tertiary-color-translucent-3: rgba(167, 167, 167, 0.5);
 
+  --secondary-fields-offset: #cbcbcb;
+
   --soft-gray: rgb(106, 106, 106);
+  --soft-primary: #2e2e2e;
 
   /* Blueish link color*/
   --link-color: #1a47e8;
@@ -142,12 +145,27 @@ body {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+}
+
+input {
+  border-radius: 2px;
+  border: 1px solid var(--soft-gray);
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--secondary-color);
   cursor: pointer;
   transition: border-color 0.25s;
+  padding-left: 10px ;
 }
 
 .button-secondary{

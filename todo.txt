@@ -4,3 +4,5 @@
 
 
 //P3 set navbar heights to fixed heigths to prevent moving and resizing. 
+
+//P3 Create own styling

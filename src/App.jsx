@@ -14,6 +14,7 @@ import { get_user_info } from './services/user-info-service';
 import Calendar from './scenes/Calendar/Calendar';
 import Navbar from './components/navbar/navbar';
 import './index.css';
+import Settings from './scenes/settings/settings';
 
 const App = () => {
   const [isOpen, setIsCollapsed] = useState(true);
@@ -62,6 +63,7 @@ const App = () => {
           <Route path="/calendar" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Calendar isCollapsed={isOpen} /></>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/update-names" element={<Missing_Names />} />
+          <Route path="/settings" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Settings  isCollapsed={isOpen} /></>} />
         </Routes>
       </div>
     </Router>
