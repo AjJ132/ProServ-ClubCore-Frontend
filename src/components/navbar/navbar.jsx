@@ -54,31 +54,7 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
             <a className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed  '}`} href='#messaging'>
                 <FontAwesomeIcon icon={faMessage} />{isCollapsed && ' Messaging'}
             </a>  
-            <Link 
-                  to="/signin" 
-                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
-              >
-                  <FontAwesomeIcon icon={faCalendarDays} />
-                  {isCollapsed && ' Signin'}
-              </Link>
-              <Link 
-                  to="/signup" 
-                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
-              >
-                  <FontAwesomeIcon icon={faCalendarDays} />
-                  {isCollapsed && ' Signup'}
-              </Link>
-              <Link 
-                  to="/update-names" 
-                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
-              >
-                  <FontAwesomeIcon icon={faCalendarDays} />
-                  {isCollapsed && ' Missing Names'}
-              </Link>
-              <button className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`} onClick={handleTest}>
-                    <FontAwesomeIcon icon={faAlignLeft} />
-                    {isCollapsed && ' Test'}
-                </button>   
+              
         </div>
 
       <NavbarFooter isCollapsed={isCollapsed} />

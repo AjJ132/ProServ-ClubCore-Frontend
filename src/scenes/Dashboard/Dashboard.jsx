@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faMessage } from '@fortawesome/free-solid-svg-icons';
 
 
-const Dashboard = ({ isCollapsed }) => {
+const Dashboard = () => {
   // Create a new Date object for the current date
   const currentDate = new Date();
 

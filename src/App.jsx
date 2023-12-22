@@ -57,7 +57,7 @@ const App = () => {
     <Router>
       <div className="main-page-wrapper">
         <Routes>
-          <Route path="/" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard isCollapsed={isOpen} /></>} />
+          <Route path="/" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard /></>} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/calendar" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Calendar isCollapsed={isOpen} /></>} />
           <Route path="/signup" element={<Signup />} />
