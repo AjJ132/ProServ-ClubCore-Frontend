@@ -34,17 +34,6 @@ const Signin = () => {
         }
     };
 
-    const handleTest = async () => {
-        try{
-            const response = await test_api(username, password);
-
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
-
     return (
         <div className='login-page'>
             <div className="login-modal">

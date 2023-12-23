@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './settings.css';
 import { update_user_names } from '../../services/user-info-service';
+import {useNavigate} from 'react-router-dom';
 
 const Settings = () => {
     const [inClub, setInClub] = useState(false);
@@ -9,6 +10,8 @@ const Settings = () => {
     const [email, setEmail] = useState('');
     const [clubId, setClubId] = useState('');
     const [clubName, setClubName] = useState('');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         //Gather info for settings page
@@ -41,10 +44,13 @@ const Settings = () => {
         }else{
             alert('There was an error updating your names. Please try again later.');
         }
-
-
-
     };
+
+    const joinTeam = () => {
+        //redirect to join club page
+        navigate('/join-team');
+    };
+
 
     return (
         <div className="page-content">
@@ -91,11 +97,14 @@ const Settings = () => {
                     </div>
                 </div>
                 <div className="settings-section section-border">
-                    <h2>Club</h2>
-                    <p>Manage all club information</p>
+                    <h2>Team</h2>
+                    <p>Manage all team information</p>
 
                     {!inClub ? (
-                        <p>it appears you are not in a club at this moment</p>
+                        <div className="flex flex-row gap-4 justify-start items-center mt-4">
+                            <h4 className="">It appears you are not apart of a group yet. Would you like to join one?</h4>
+                            <button onClick={joinTeam}>Join Team</button>
+                        </div>
                     ) : (
                         <div className="settings-field">
                             <h3>Club Name</h3>

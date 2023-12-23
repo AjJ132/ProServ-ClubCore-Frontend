@@ -15,6 +15,7 @@ import Calendar from './scenes/Calendar/Calendar';
 import Navbar from './components/navbar/navbar';
 import './index.css';
 import Settings from './scenes/settings/settings';
+import JoinTeam from './scenes/Join-Club/Join-Team';
 
 const App = () => {
   const [isOpen, setIsCollapsed] = useState(true);
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/update-names" element={<Missing_Names />} />
           <Route path="/settings" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Settings  isCollapsed={isOpen} /></>} />
+          <Route path="/join-team" element={<JoinTeam />} />
         </Routes>
       </div>
     </Router>

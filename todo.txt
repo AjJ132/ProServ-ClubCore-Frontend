@@ -10,3 +10,5 @@
 //P3 ensure that updating settings goes through proper regexes and validations
 
 //P2 if the server isnt running and you refresh the page the validate_session API call fails and doesnt navigate the user to the signin page. Either this needs to remain the same or it needs to send  the user to a signin or service is down page. 
+
+//P1 add loading/waiting to all API call buttons or pages. Or where information loads in
