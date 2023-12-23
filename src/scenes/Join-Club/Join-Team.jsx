@@ -3,34 +3,38 @@ import './Join-Team.css';
 import '../Signin-Signup/Signin-Signup.css';
 import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
 import pvatl from '../../assets/pvatl.png';
-import { team_lookup } from '../../services/user-info-service';
+import { team_lookup, join_team } from '../../services/user-info-service';
+import TeamCard from '../../components/team-card/team-card';
 
 
 const JoinTeam = () => {
     const [teamCode, setTeamCode] = useState('');
-    const [teamID, setTeamID] = useState(''); 
     const [teamName, setTeamName] = useState('');
     const [teamLocation, setTeamLocation] = useState('');
+    const [selectedTeamCode, setSelectedTeamCode] = useState('');
 
     const [teamCardErrorMessage, setTeamCardErrorMessage] = useState('');
     const [showCard, setShowCard] = useState(false);
 
     //search for team
-    const handleTeamSearch = () => {
+    const handleTeamSearch =  async () => {
         //validate team code is 6 characters long
         if (teamCode.length !== 6) {
-            alert('Team code must be 6 characters long');
+            alert('Please re-enter your team code');
             return;
         }
 
         //search for team
-        var response = team_lookup(teamCode);
+        var response = await team_lookup(teamCode);
+        console.log('Team lookup response:', response);
+        console.log('Team lookup response success:', response.success);
         
-        if (response) {
+        if (response.success === true) {
+            var data = response.data;
             console.log('Team found:', response);
-            setTeamID(response.Team_ID);
-            setTeamName(response.Team_Name);
-            setTeamLocation(response.Team_Location);
+            setSelectedTeamCode(teamCode);
+            setTeamName(data.team_Name);
+            setTeamLocation(data.team_Location);
 
             setTeamCardErrorMessage('No team selected');
             
@@ -41,9 +45,27 @@ const JoinTeam = () => {
 
             setShowCard(false);
         }
-
-
     };
+
+    const handleJoinTeam = async () => {
+        //validate team code is 6 characters long
+        if (selectedTeamCode.length !== 6) {
+            alert('Team code must be 6 characters long');
+            return;
+        }
+
+        //search for team
+        var response = await join_team(teamCode);
+        
+        if (response === true) {
+            console.log('You are now a member of', teamName);
+            //redirect back a page
+            window.history.back();
+        }else{
+            alert('There was a problem joining your team. Please try again later or contact support')
+        }
+    }
+
     return (
         <div className="login-page">
             <div className="join-team-modal">
@@ -66,19 +88,13 @@ const JoinTeam = () => {
                     <button onClick={handleTeamSearch}>Search</button>
                 </div> 
                {showCard ? (
-                    <div className="team-card mt-8">
-                        <div className="team-card-image">
-                            <img src={pvatl} alt="logo" width={150}/>
-                        </div>
-                        <div className="line-divider mt-4 mb-2"></div>
-                        <div className="flex flex-col content-center justify-center gap-0 w-full mt-4">
-                            <h3>Pole Vault Atlanta</h3>
-                            <p>Atlanta, GA</p>
-                        </div>
-                        <div className="flex flex-row content-center justify-center gap-2 w-full mt-6">
-                            <button>Join</button>
-                        </div>
-                    </div>
+                    <div className="w-full">
+                        <TeamCard
+                            teamName={teamName}
+                            teamLocation={teamLocation}
+                            onJoinClick={handleJoinTeam}
+                            joining={true}/>
+                </div>
                 ) : (
                     <div className="flex flex-col justify-center gap-2 w-full h-full mt-8">
                         <h3 className="w-fit ml-auto mr-auto">{teamCardErrorMessage}</h3>

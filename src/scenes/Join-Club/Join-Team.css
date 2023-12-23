@@ -78,22 +78,3 @@
     transition: border-color 0.25s;
 }
 
-.team-card{
-  width: 100%;
-  height: fit-content;
-  border-radius: 12px;
-  border: 1px solid var(--tertiary-color-translucent-3);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-}
-
-.team-card-image{
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}

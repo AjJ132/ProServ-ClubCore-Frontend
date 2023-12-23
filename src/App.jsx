@@ -7,6 +7,7 @@ import Signin from './scenes/Signin-Signup/Signin';
 import Signup from './scenes/Signin-Signup/Signup';
 import Missing_Names from './scenes/Signin-Signup/missing-names';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { get_user_info } from './services/user-info-service';
 
 
 import Calendar from './scenes/Calendar/Calendar';
@@ -22,43 +23,14 @@ const App = () => {
     setIsCollapsed(!isOpen);
   };
 
-  // useEffect(() => { 
-  //   const fetchSession = async () => {
-  //     try{
-  //         const response = await validate_session();
-  
-  //         if (!response) {
-  //             console.log('Session invalid. Please login. ------------------');
-              
-  //             //check if current page is signin or signup
-  //             if (nav_pages.includes(window.location.pathname)) {
-  //               console.log('Current page is signin or signup');
-  //             }else{
-  //               //redirect to signin page
-  //               window.location.href = '/signin';
-  //             }
+  useEffect(() => {
+    const startup = async () => {
+      await get_user_info();
+    }
 
-  //         }
-  //         else{
-  //           console.log('Session valid:', response);
-            
-  //           //data from API call will be stored in local stoarge
-  //           await get_user_info();
-  //         }
-  
-  //         return;
-  //     }
-  //     catch(error){
-  //         console.error('There was a problem with the fetch operation: WTF', error);
-  //         throw error;
-  //     }
-  // }
-
-  // fetchSession();
-
-   
-  // }, []);
-
+    startup();
+  }
+  , []);
 
   return (
     <Router>

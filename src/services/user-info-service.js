@@ -21,8 +21,8 @@ export const get_user_info = async () => {
         localStorage.setItem('first_name', data.first_Name);
         localStorage.setItem('last_name', data.last_Name);
         localStorage.setItem('email', data.email);
-        localStorage.setItem('club_id', data.club_ID);
-        localStorage.setItem('club_name', data.club_Name);
+        localStorage.setItem('team_name', data.team_Name);
+        localStorage.setItem('isInTeam', data.isInTeam);
         
         //retur first, last names and club name
         return;
@@ -66,7 +66,7 @@ export const update_user_names = async (First_Name, Last_Name) => {
 
 export const team_lookup = async (team_code) => {
     try {
-        const response = await http_context(`${API_URL}/team/team-lookup?team_code=${encodeURIComponent(team_code)}`, {
+        const response = await http_context(`${API_URL}/team/team-lookup?Team_Join_Code=${encodeURIComponent(team_code)}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -77,12 +77,35 @@ export const team_lookup = async (team_code) => {
         if (!response.ok) {
             return false;
         }
-
         //return data
         const data = await response.json();
-        return data;
+        return {success: true, data: data};
 
 
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+
+export const join_team = async (team_code) => {
+    try {
+        const response = await http_context(`${API_URL}/team/join-team?Team_Join_Code=${encodeURIComponent(team_code)}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },  
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        //prefetch team data to be stored in local storage //P3 //README not sure if I even need this
+
+
+        return true;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         throw error;

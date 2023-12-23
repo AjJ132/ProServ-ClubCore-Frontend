@@ -19,3 +19,13 @@
 //NeedsTest Need to try and register a person and join team at the same time
     //README will need to implement team_card logic/code into register modal
     //README either implement here or have modal pop up on page first load when user not in team
+
+//P3 remove go f yourself from support page
+
+//P3 remove team id from local storage as we will never expose identifiers for teams or users
+
+//P3 update names doesnt work. Says club_ID and Name are required. Not sure why as it should be using the update names DTO
+
+//P2 implement update password and forgot password.
+
+//P3 implement change email address. Think about this one not sure if we want to do that. Maybe lock this down to external requests to support

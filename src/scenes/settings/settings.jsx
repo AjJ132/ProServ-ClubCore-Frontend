@@ -2,32 +2,39 @@ import React, { useEffect, useState } from 'react';
 import './settings.css';
 import { update_user_names } from '../../services/user-info-service';
 import {useNavigate} from 'react-router-dom';
+import TeamCard from '../../components/team-card/team-card';
+import { get_team_location } from '../../services/team-info-service';
 
 const Settings = () => {
-    const [inClub, setInClub] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [clubId, setClubId] = useState('');
-    const [clubName, setClubName] = useState('');
+    const [isInTeam, setIsInTeam] = useState(false);
+    const [teamName, setTeamName] = useState('');
+    const [teamLocation, setTeamLocation] = useState('');
 
     const navigate = useNavigate();
 
     useEffect(() => {
         //Gather info for settings page
-        setClubId(localStorage.getItem('club_id'));
+        setIsInTeam(localStorage.getItem('isInTeam'));
 
-        if (clubId !== '') {
-            setInClub(true);
-        }else{
-            setInClub(false);
-        }
+        if (isInTeam) {
+            setTeamName(localStorage.getItem('team_name'));
 
-        setClubName(localStorage.getItem('club_name'));
+            fetchTeamLocation();
+        }   
+
         setFirstName(localStorage.getItem('first_name'));
         setLastName(localStorage.getItem('last_name'));
         setEmail(localStorage.getItem('email'));
     }, []);
+
+    const fetchTeamLocation = async () => {
+        //fetch team location
+        setTeamLocation(await get_team_location());
+    };
+
 
     const updateNames = async () => {
         //check names are not empty
@@ -49,6 +56,10 @@ const Settings = () => {
     const joinTeam = () => {
         //redirect to join club page
         navigate('/join-team');
+    };
+
+    const leaveTeam = () => {
+        navigate('/leave-team');
     };
 
 
@@ -96,22 +107,20 @@ const Settings = () => {
                         <button className="mt-4">Change Password</button>
                     </div>
                 </div>
-                <div className="settings-section section-border">
+                <div className="settings-section section-border mb-8 ">
                     <h2>Team</h2>
                     <p>Manage all team information</p>
 
-                    {!inClub ? (
-                        <div className="flex flex-row gap-4 justify-start items-center mt-4">
-                            <h4 className="">It appears you are not apart of a group yet. Would you like to join one?</h4>
-                            <button onClick={joinTeam}>Join Team</button>
-                        </div>
-                    ) : (
-                        <div className="settings-field">
-                            <h3>Club Name</h3>
-                            <div className="line-divider"></div>
-                            <input type="text" placeholder="Club Name" value={clubName} className="mt-4" onChange={(e) => setClubName(e.target.value)}/>
-                        </div>
-                    )}
+                    <div className="w-1/2">
+                        {!isInTeam ? (
+                            <div className="flex flex-row gap-4 justify-start items-center mt-4">
+                                <h4 className="">It appears you are not apart of a group yet. Would you like to join one?</h4>
+                                <button onClick={joinTeam}>Join Team</button>
+                            </div>
+                        ) : (
+                            <TeamCard teamName={teamName} teamLocation={teamLocation} onJoinClick={leaveTeam} joining={false}/>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
