@@ -54,11 +54,12 @@ export const signup_service = async (email, password) => {
 
 export const assign_missing_user_names = async (Email, FirstName, LastName, TeamCode) => {
     try{
-        const response = await http_context(`${API_URL}/auth/update-user-info`, {
+        const response = await http_context(`${API_URL}/Auth/update-user-info`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({ Email, FirstName, LastName, TeamCode})
         });
 
