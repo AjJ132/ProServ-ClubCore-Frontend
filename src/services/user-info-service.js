@@ -63,3 +63,28 @@ export const update_user_names = async (First_Name, Last_Name) => {
         throw error;
     }
 }
+
+export const team_lookup = async (team_code) => {
+    try {
+        const response = await http_context(`${API_URL}/team/team-lookup?team_code=${encodeURIComponent(team_code)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },  
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        //return data
+        const data = await response.json();
+        return data;
+
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}

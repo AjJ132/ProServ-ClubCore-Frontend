@@ -12,3 +12,10 @@
 //P2 if the server isnt running and you refresh the page the validate_session API call fails and doesnt navigate the user to the signin page. Either this needs to remain the same or it needs to send  the user to a signin or service is down page. 
 
 //P1 add loading/waiting to all API call buttons or pages. Or where information loads in
+
+//C1 if you remove the user from the table. and the cookie isnt removed from the users browser. They can stil access information and bypass the [Authorize] on the API endpoints. 
+    //README not sure what the fix is going to be
+
+//NeedsTest Need to try and register a person and join team at the same time
+    //README will need to implement team_card logic/code into register modal
+    //README either implement here or have modal pop up on page first load when user not in team

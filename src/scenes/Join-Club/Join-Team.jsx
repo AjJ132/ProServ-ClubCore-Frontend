@@ -1,11 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Join-Team.css';
 import '../Signin-Signup/Signin-Signup.css';
 import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
 import pvatl from '../../assets/pvatl.png';
+import { team_lookup } from '../../services/user-info-service';
 
 
 const JoinTeam = () => {
+    const [teamCode, setTeamCode] = useState('');
+    const [teamID, setTeamID] = useState(''); 
+    const [teamName, setTeamName] = useState('');
+    const [teamLocation, setTeamLocation] = useState('');
+
+    const [teamCardErrorMessage, setTeamCardErrorMessage] = useState('');
+    const [showCard, setShowCard] = useState(false);
+
+    //search for team
+    const handleTeamSearch = () => {
+        //validate team code is 6 characters long
+        if (teamCode.length !== 6) {
+            alert('Team code must be 6 characters long');
+            return;
+        }
+
+        //search for team
+        var response = team_lookup(teamCode);
+        
+        if (response) {
+            console.log('Team found:', response);
+            setTeamID(response.Team_ID);
+            setTeamName(response.Team_Name);
+            setTeamLocation(response.Team_Location);
+
+            setTeamCardErrorMessage('No team selected');
+            
+            setShowCard(true);
+        }else{
+            console.log('Team not found');
+            setTeamCardErrorMessage('Team not found');
+
+            setShowCard(false);
+        }
+
+
+    };
     return (
         <div className="login-page">
             <div className="join-team-modal">
@@ -22,14 +60,12 @@ const JoinTeam = () => {
                 <div className="flex flex-row items-end justify-center gap-4 w-full mt-8">
                     <div className="flex flex-col content-center justify-center gap-0 w-full">
                         <p>Team Code<strong>*</strong></p>
-                        <input type="text" placeholder="Team Code" className="login-input"/>
+                        <input type="text" placeholder="Team Code" className="login-input" onChange={(e) => setTeamCode(e.target.value)} maxLength={6}/>
                     </div>
 
-                    <button>Search</button>
+                    <button onClick={handleTeamSearch}>Search</button>
                 </div> 
-                {/* <div className="flex flex-col justify-center gap-2 w-full h-full mt-8">
-                    <h3 className="w-fit ml-auto mr-auto">No team selected</h3>
-                </div> */}
+               {showCard ? (
                     <div className="team-card mt-8">
                         <div className="team-card-image">
                             <img src={pvatl} alt="logo" width={150}/>
@@ -42,8 +78,12 @@ const JoinTeam = () => {
                         <div className="flex flex-row content-center justify-center gap-2 w-full mt-6">
                             <button>Join</button>
                         </div>
-
                     </div>
+                ) : (
+                    <div className="flex flex-col justify-center gap-2 w-full h-full mt-8">
+                        <h3 className="w-fit ml-auto mr-auto">{teamCardErrorMessage}</h3>
+                    </div>
+                )}
                 <div className="flex flex-row content-center justify-center gap-2 w-full mt-14">
                     <p>Not seeing your team? <a>Contact support</a></p>
                 </div>
