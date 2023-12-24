@@ -33,3 +33,8 @@
 //P2 implement update password and forgot password.
 
 //P3 implement change email address. Think about this one not sure if we want to do that. Maybe lock this down to external requests to support
+
+//P2 ability to allow coaches to schedule practice over a period of time. Similar to repeat reminders. Tuesday practice => repeat for 6 months
+//P2 ability to sort users into groups and assign stuff to them
+
+//TODO create a log system and being implementing double try catch to try and save requests

@@ -5,6 +5,32 @@ export const get_calendar_events_by_date_range = async (start_date, end_date) =>
     try{
 
     }catch(error){
-        
+
+    }
+};
+
+export const add_calendar_event = async (event) => {
+    try{    
+        const response = await http_context(`${API_URL}/events/sa-add-event`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },  
+            credentials: 'include',
+            body: JSON.stringify({
+                event: event
+            })
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        return response.json();
+
+
+    }catch(error){
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
     }
 };

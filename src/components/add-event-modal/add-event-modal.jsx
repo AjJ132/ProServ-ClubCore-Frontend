@@ -4,6 +4,7 @@ import { CirclePicker } from 'react-color';
 import { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { add_calendar_event } from '../../services/calendar-api-service';
 
 // import { isColorLight } from '../../util/isColorLight';
 
@@ -23,16 +24,17 @@ function isColorLight(color) {
     }
 }
 
-const AddEventModal = ({dateInput,onClose}) => {
+const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [date, setDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const [color, setColor] = useState('f44336');
     const [textColor, setTextColor] = useState('#000000'); // Default to black text
 
     const customColors = [
-        '#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5',
-        '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50',
+        '#2196f3', '#f44336','#e91e63', '#9c27b0', '#673ab7', 
+        '#3f51b5', '#03a9f4', '#00bcd4', '#009688', '#4caf50',
         '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800',
         '#ff5722', '#795548', '#607d8b', '#000000', '#991234'
     ];
@@ -56,13 +58,59 @@ const AddEventModal = ({dateInput,onClose}) => {
     };
 
     //set date to the date passed in from the calendar
-    useEffect(() => {
+   useEffect(() => {
     if (dateInput) {
         const dateObject = new Date(dateInput);
-        setDate(dateObject);
-    }
-}, [dateInput]);
+        const curTime = new Date();
+        const hr = curTime.getHours();
+        dateObject.setMinutes(0);
+        dateObject.setHours(hr);
 
+        setStartDate(dateObject);
+        let endDate = new Date(dateObject);
+        endDate.setHours(dateObject.getHours() + 1);
+        setEndDate(endDate);
+    }
+
+    const handleAddEvent = async () => {
+        //ensure title is not empty
+        if (title === '') {
+            alert('Title cannot be empty');
+            return;
+        }
+
+        //ensure start date is before end date
+        if (startDate > endDate) {
+            alert('Start date must be before end date');
+            return;
+        }
+
+        //create new event object
+        const event = {
+            title: title,
+            description: description,
+            startDate: startDate,
+            endDate: endDate,
+            color: color
+        };
+
+        //send api request
+        const response = await add_calendar_event(event);
+        console.log(response);
+
+        if (response && response.status === 'success') {
+
+            const newEvent = response.event;
+            console.log("New Event:");
+            console.log(newEvent);
+            onAddEvent(newEvent); // Call the callback with the new event
+            onClose(); // Close the modal
+        } else {
+            // Handle errors
+            alert('Error adding event');
+        }
+    };
+}, [dateInput]);
     return (
         <div className="modal-frame">
             <div className="modal-content">
@@ -73,9 +121,10 @@ const AddEventModal = ({dateInput,onClose}) => {
                 <div className="modal-body mt-8">
                     <div className="date-preview">
                         <div className="date-preview-box p-2">
-                            <h3>{date.getDate()}</h3>
+                            <h3>{startDate.getDate()}</h3>
                             <div className="event-indicator-preview mt-2" style={{backgroundColor: color}}>
-                                <p className="ellipsis" style={{color: textColor}}>{title}</p>
+                                <p className=" w-2/5" style={{color: textColor}} >{startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                <p className="ml-1 ellipsis" style={{color: textColor}}>{title}</p>
                             </div>
                         </div>
                     </div>
@@ -105,16 +154,35 @@ const AddEventModal = ({dateInput,onClose}) => {
                                 />
                         </div>
                         <div className="flex flex-col justify-center items-start gap-1 w-full pl-8 pr-8">
-                            <h3>Date</h3>
+                            <h3>Start Date/Time</h3>
+                            <div className="flex flex-row">
                             <DatePicker 
-                                selected={date} 
-                                onChange={(date) => setDate(date)} 
+                                selected={startDate} 
+                                onChange={(date) => setStartDate(date)} 
+                                showTimeSelect
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="MMM d, h:mm aa"
                             />
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-center items-start gap-1 w-full pl-8 pr-8">
+                            <h3>End Date/Time</h3>
+                            <div className="flex flex-row">
+                            <DatePicker 
+                                selected={endDate} 
+                                onChange={(date) => setEndDate(date)} 
+                                showTimeSelect
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="MMM d, h:mm aa"
+                            />
+                            </div>
                         </div>
 
                         <div className="flex flex-row justify-center items-center gap-4 w-full mt-14 pl-8 pr-8">
                             <button className="cancel-btn" onClick={onClose}>Cancel</button>
-                            <button className="save-btn">Save</button>
+                            <button >Add</button>
                         </div>
                     </div>
                 </div>

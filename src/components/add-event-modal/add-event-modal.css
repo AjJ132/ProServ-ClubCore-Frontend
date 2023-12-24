@@ -74,7 +74,7 @@
 }
 
 .date-preview-box{
-    width: 50%; /* specify the width */
+    width: 65%; /* specify the width */
     height: 150px; /* specify the height */
     background-color: var(--calendar-bg-offset);
     border: 2px solid var(--secondary-fields-offset); /* optional: add a border */
@@ -93,7 +93,11 @@
 }
 
 .event-indicator-preview{
-    text-align: center;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 5px;
 
     width: 90%;
     padding: 5px;

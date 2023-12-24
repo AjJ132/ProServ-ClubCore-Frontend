@@ -18,8 +18,12 @@ import AddEventModal from "../../components/add-event-modal/add-event-modal";
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 interface Event {
-date: Date;
-title: string;
+    eventID: string;
+    title: string;
+    description: string;
+    startDate: Date;
+    endDate: Date;
+    color: string;
 }
 
 interface EventCalendarProps {
@@ -27,6 +31,7 @@ events: Event[];
 }
 
 const EventCalendar = ({ events }: EventCalendarProps) => {
+const [events2, setEvents] = useState<Event[]>([]);
 const currentDate = new Date();
 const firstDayOfMonth = startOfMonth(currentDate);
 const lastDayOfMonth = endOfMonth(currentDate);
@@ -50,7 +55,7 @@ return subDays(firstDayOfMonth, index + 1);
 
 const eventsByDate = useMemo(() => {
     return events.reduce((acc: { [key: string]: Event[] }, event) => {
-    const dateKey = format(event.date, "yyyy-MM-dd");
+    const dateKey = format(event.startDate, "yyyy-MM-dd");
     if (!acc[dateKey]) {
         acc[dateKey] = [];
     }
@@ -65,6 +70,13 @@ const handleDayClick = (date: Date) => {
     setSelectedDate(date); // Save the clicked date
     setIsModalOpen(true); // Open the modal
 };
+
+const addNewEvent = (newEvent: Event) => {
+    // Add the new event to the events array
+    setEvents([...events, newEvent]);
+    setIsModalOpen(false); // Close the modal
+};
+
 
 return (
     <div className="page-content ">
@@ -135,7 +147,7 @@ return (
             </div>
         </div>
         </div>
-        {isModalOpen && <AddEventModal date={selectedDate} onClose={() => setIsModalOpen(false)} />}
+        {isModalOpen && <AddEventModal dateInput={selectedDate } onAddEvent={addNewEvent} onClose={() => setIsModalOpen(false)} />}
     </div>
 );
 };
