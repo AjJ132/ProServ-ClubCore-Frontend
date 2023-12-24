@@ -20,6 +20,8 @@
     //README will need to implement team_card logic/code into register modal
     //README either implement here or have modal pop up on page first load when user not in team
 
+//NeedsTest calendar day calculations needs some kind of visual testing. Account for leap years?
+
 //P3 remove go f yourself from support page
 
 //P3 remove team id from local storage as we will never expose identifiers for teams or users

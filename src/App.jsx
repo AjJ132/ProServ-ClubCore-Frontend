@@ -8,6 +8,8 @@ import Signup from './scenes/Signin-Signup/Signup';
 import Missing_Names from './scenes/Signin-Signup/missing-names';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { get_user_info } from './services/user-info-service';
+import EventCalendar from '/src/scenes/Calendar/EventCalendar';
+import { addDays, subDays } from "date-fns";
 
 
 import Calendar from './scenes/Calendar/Calendar';
@@ -38,7 +40,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard /></>} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/calendar" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Calendar isCollapsed={isOpen} /></>} />
+          <Route path="/calendar" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<EventCalendar events={[
+          { date: subDays(new Date(), 6), title: "Post video" },
+          { date: subDays(new Date(), 1), title: "Edit video" },
+          { date: addDays(new Date(), 3), title: "Code" },
+        ]}/></>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/update-names" element={<Missing_Names />} />
           <Route path="/settings" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Settings  isCollapsed={isOpen} /></>} />
