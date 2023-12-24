@@ -1,0 +1,123 @@
+.modal-frame{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 200px;
+}
+
+.modal-content{
+    width: 450px;
+    height: fit-content;
+    padding-bottom: 2rem;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.modal-body strong{
+    color: red;
+}
+
+.modal-body input{
+    width: 100%;
+    height: 40px;
+    background-color: var(--calendar-bg-offset);
+    border: 1px solid var(--secondary-fields-offset);
+    border-radius: 4px;
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 10px;
+}
+
+.description-input{
+    width: 100%;
+    padding: 10px;
+    height: 80px;
+    max-height: 120px;
+    background-color: var(--calendar-bg-offset);
+    border: 1px solid var(--secondary-fields-offset);
+    border-radius: 4px;
+}
+
+.modal-body input:focus{
+    outline: 1px solid var(--primary-color);
+}
+
+.date-preview{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+}
+
+.date-preview-box{
+    width: 50%; /* specify the width */
+    height: 150px; /* specify the height */
+    background-color: var(--calendar-bg-offset);
+    border: 2px solid var(--secondary-fields-offset); /* optional: add a border */
+    border-radius: 2px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start ;
+    align-items: center;
+}
+
+.date-preview-box h3{
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.event-indicator-preview{
+    text-align: center;
+
+    width: 90%;
+    padding: 5px;
+    height: fit-content;
+    min-height: 20px;
+    border-radius: 4px;
+
+    background-color: #f44336;
+}
+
+.event-indicator-preview p{
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 14px;
+}
+
+.ellipsis {
+    white-space: nowrap; /* Keep the text on a single line */
+    overflow: hidden;    /* Hide text that goes beyond the container */
+    text-overflow: ellipsis; /* Add ellipsis at the end */
+    width: 90%;
+  }
+
+.cancel-btn{
+    background-color: var(--cancel-color);
+}

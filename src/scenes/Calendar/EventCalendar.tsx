@@ -62,9 +62,8 @@ const eventsByDate = useMemo(() => {
 
 const handleDayClick = (date: Date) => {
     //launch add event modal
-
-
-
+    setSelectedDate(date); // Save the clicked date
+    setIsModalOpen(true); // Open the modal
 };
 
 return (

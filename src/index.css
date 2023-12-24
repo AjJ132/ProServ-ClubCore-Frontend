@@ -17,6 +17,8 @@
   --secondary-color: #ffffff; /* 30% of the usage */
   --accent-color: #006eff;     /* 10% of the usage */
 
+  --cancel-color: #ff7300;
+
   --tertiary-color: #a7a7a7;
   --tertiary-color-translucent-1: rgba(167, 167, 167, 0.15);
   --tertiary-color-translucent-2: rgba(167, 167, 167, 0.3);

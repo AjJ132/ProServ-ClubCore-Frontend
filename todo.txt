@@ -22,6 +22,8 @@
 
 //NeedsTest calendar day calculations needs some kind of visual testing. Account for leap years?
 
+//P2 ensure that all dates and times account for time zones (UNIVERSAL TIME ZONE)
+
 //P3 remove go f yourself from support page
 
 //P3 remove team id from local storage as we will never expose identifiers for teams or users
