@@ -4,17 +4,23 @@ import React, { useEffect } from 'react';
 import './Dashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faMessage } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 
 const Dashboard = () => {
   // Create a new Date object for the current date
   const currentDate = new Date();
+  const navigate = useNavigate();
 
   // Options for formatting the date
   const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   // Format the date into a human-readable string
   const dateString = currentDate.toLocaleDateString('en-US', dateOptions);
+
+  const addEventInCalendar = () => {
+    navigate('/calendar', { state: { addEvent: true } });
+  };
 
   return (
     <div className="page-content">
@@ -43,7 +49,7 @@ const Dashboard = () => {
                   <FontAwesomeIcon icon={faMessage} />
                   Send Message
                 </button>
-                <button className="button button-secondary flex flex-row items-center gap-1">
+                <button className="button button-secondary flex flex-row items-center gap-1" onClick={addEventInCalendar}>
                   <FontAwesomeIcon icon={faCalendarDays} />
                   Add Event
                 </button>

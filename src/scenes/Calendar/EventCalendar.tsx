@@ -18,6 +18,7 @@ import AddEventModal from "../../components/add-event-modal/add-event-modal";
 import { get_my_events } from "../../services/calendar-api-service";
 import '../../components/add-event-modal/add-event-modal.css'
 import ViewEventModal from "../../components/view-event-modal/view-event-modal";
+import { useLocation } from 'react-router-dom';
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -38,6 +39,10 @@ events: Event[];
 }
 
 const EventCalendar = () => {
+
+const location = useLocation();
+const addEvent = location.state?.addEvent || false;
+
 const [events, setEvents] = useState<Event[]>([]);
 const currentDate = new Date();
 const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -214,6 +219,17 @@ const fetchEvents = async (date) => {
 
 useEffect(() => {
     fetchEvents(firstDayOfMonth);
+
+    console.log('Add event:', addEvent);
+    
+    if(addEvent === true) {
+
+        console.log('Add event is true');
+        setSelectedDate(currentDate);
+        setIsAddModalOpen(true);
+
+    }
+
 }, [currentMonth]);
 
 
