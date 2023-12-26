@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Signin-Signup.css'
 import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
-import { signup_service } from '../../services/signin-api-service';
+import { signup_service, signin_service } from '../../services/signin-api-service';
 import {useNavigate} from 'react-router-dom';
 
 const Signup = () => {
@@ -82,9 +82,15 @@ const Signup = () => {
                
                 //store email in local storage
                 localStorage.setItem('email', username);
+                
+                //sign user in //TODO maybe find a better way to do this by overiding the signup function in ASP.NET
+                const signinResponse = await signin_service(username, password);
 
-                console.log('Redirecting to update names page');
-                navigate('/update-names');
+                if (signinResponse == true) {
+                    console.log('Signin successful. Saving cookie');
+                    localStorage.setItem('email', username);
+                    navigate('/update-names');
+                }
                 
 
             } else if (response == 409) {

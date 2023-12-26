@@ -11,7 +11,7 @@ export const get_user_info = async () => {
             credentials: 'include',
         });
         if (!response.ok) {
-            return;
+            return false;
         }
 
         //Get first name, last name, email, club id, and club name from response
@@ -24,8 +24,8 @@ export const get_user_info = async () => {
         localStorage.setItem('team_name', data.team_Name);
         localStorage.setItem('isInTeam', data.isInTeam);
         
-        //retur first, last names and club name
-        return;
+        //return first, last names and club name
+        return true;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         throw error;

@@ -29,7 +29,7 @@ const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
     const [description, setDescription] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [color, setColor] = useState('f44336');
+    const [color, setColor] = useState('#2196f3');
     const [textColor, setTextColor] = useState('#000000'); // Default to black text
 
     const customColors = [
@@ -77,16 +77,28 @@ const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
             startDate: startDate,
             endDate: endDate,
             color: color,
-            Event_ID: 0
+            Event_ID: '_',
+            assignedBy:'_',
+            dateCreated: new Date(),
         };
 
         //send api request
         const response = await add_calendar_event(event);
         console.log(response);
 
-        if (response && response.status === 'success') {
+        if (response && response.status === 200) {
 
-            const newEvent = response.event;
+            const data = await response.json();
+            console.log(data);
+            const newEvent = {
+                title: title,
+                description: description,
+                startDate: startDate,
+                endDate: endDate,
+                color: color,
+                Event_ID: data.event_ID,
+                canUpdate: true
+            };
             console.log("New Event:");
             console.log(newEvent);
             onAddEvent(newEvent); // Call the callback with the new event

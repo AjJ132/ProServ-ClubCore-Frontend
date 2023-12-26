@@ -26,11 +26,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    const startup = async () => {
-      await get_user_info();
-    }
+    // const startup = async () => {
+    //   const response = await get_user_info();
 
-    startup();
+    //   if(response === false) {
+    //     window.location.href = '/update-names';
+    //   }
+    // }
+
+    // startup();
   }
   , []);
 

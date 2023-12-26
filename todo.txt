@@ -37,4 +37,9 @@
 //P2 ability to allow coaches to schedule practice over a period of time. Similar to repeat reminders. Tuesday practice => repeat for 6 months
 //P2 ability to sort users into groups and assign stuff to them
 
+//NeedsTest ensure that date/datetime offset values from calendar events are being recorded properly. 
+//NeedsTest check the get my events endpoint where we grab first and last name in the foreach loop. There probably is a better way to do that
+
+//P3 add a loading symbol to the signup and signin screen
+
 //TODO create a log system and being implementing double try catch to try and save requests

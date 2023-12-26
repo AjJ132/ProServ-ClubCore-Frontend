@@ -1,15 +1,25 @@
 .calendar-container{
     background-color: var(--secondary-color);
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
+
+    
+}
+
+.page-white-space{
+    width: 100%;
+    min-height: 150px;
+    z-index: 0;
+    background-color: var(--calendar-bg-offset);
 }
 
 .calendar-bg-offset{
     background-color: var(--calendar-bg-offset);
+    height: fit-content;
 }
 
 .calendar-container h2{
@@ -26,7 +36,17 @@
 
 .calendar{
     min-width: 768px;
+    min-height: 100vh;
+    height: fit-content;
 }
+
+/* .calendar-double-border-top{
+    border-top: 1.5px solid var(--secondary-fields-offset);
+    border-bottom: 1px solid var(--secondary-fields-offset);
+    border-left: 1px solid var(--secondary-fields-offset);
+    border-right: 1px solid var(--secondary-fields-offset);
+
+} */
 
 .calendar-text{
     color: var(--primary-color);
@@ -43,6 +63,11 @@
     color: var(--primary-color);
 }
 
+.calendar-previous-month{
+    background-color: rgb(235, 235, 235);
+    border: 1px solid var(--tertiary-color-translucent-3);
+}
+
 .date-change-button{
     display:  flex;
     box-sizing: border-box;
@@ -52,6 +77,11 @@
     background-color: var(--secondary-color);
     color: var(--primary-color);
     border: 1px solid var(--tertiary-color-translucent-3);
+    
+    min-width: 60px;
+    max-width: 60px;
+    min-height: 42px;
+    max-height: 42px;
 }
 
 .date-change-button button:hover{
@@ -63,11 +93,21 @@
 }
 
 .date-change-button button:first-child {
-    border-radius: 6px 0 0 6px !important; /* Adjust the radius as needed */
+    
+    margin-right: 20px;
+    border-radius: 6px !important; /* Adjust the radius as needed */
+    min-width: 80px;
+    max-width: 80px;
 }
 
 .date-change-button button:nth-child(2) {
+    border-radius: 6px 0 0 6px !important; /* Adjust the radius as needed */
+    
+}
+
+.date-change-button button:nth-child(3) {
     border-radius: 0 !important;
+    
 }
 
 .date-change-button button:last-child {

@@ -17,6 +17,8 @@
   --secondary-color: #ffffff; /* 30% of the usage */
   --accent-color: #006eff;     /* 10% of the usage */
 
+  --accent-hover-color: #0059c1;
+
   --cancel-color: #ff7300;
 
   --tertiary-color: #a7a7a7;
@@ -157,6 +159,10 @@ button {
   transition: border-color 0.25s;
   width: fit-content;
   padding: 0.5rem 1rem;
+}
+
+button:hover {
+  background-color: var(--accent-hover-color);
 }
 
 .icon-button{
