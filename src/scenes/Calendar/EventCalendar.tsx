@@ -9,6 +9,7 @@ getDay,
 isToday,
 startOfMonth,
 } from "date-fns";
+import { isValid } from 'date-fns';
 import React from "react";
 import { useState } from "react";
 import { useMemo } from "react";
@@ -54,13 +55,24 @@ return subDays(firstDayOfMonth, index + 1);
 }).reverse();
 
 const eventsByDate = useMemo(() => {
-    return events.reduce((acc: { [key: string]: Event[] }, event) => {
-    const dateKey = format(event.startDate, "yyyy-MM-dd");
-    if (!acc[dateKey]) {
-        acc[dateKey] = [];
+    if (!Array.isArray(events)) {
+        console.error('Events is not an array or is undefined');
+        return {};
     }
-    acc[dateKey].push(event);
-    return acc;
+
+    return events.reduce((acc: { [key: string]: Event[] }, event) => {
+        if (event && isValid(event.startDate)) {
+            const dateKey = format(event.startDate, "yyyy-MM-dd");
+            if (!acc[dateKey]) {
+                acc[dateKey] = [];
+            }
+            acc[dateKey].push(event);
+        } else if (!event) {
+            console.error('Null event found');
+        } else {
+            console.error('Invalid date found in event:', event);
+        }
+        return acc;
     }, {});
 }, [events]);
 

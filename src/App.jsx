@@ -40,11 +40,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard /></>} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/calendar" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<EventCalendar events={[
-          { date: subDays(new Date(), 6), title: "Post video" },
-          { date: subDays(new Date(), 1), title: "Edit video" },
-          { date: addDays(new Date(), 3), title: "Code" },
-        ]}/></>} />
+          <Route path="/calendar" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<EventCalendar /></>} />
+          
+        
           <Route path="/signup" element={<Signup />} />
           <Route path="/update-names" element={<Missing_Names />} />
           <Route path="/settings" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Settings  isCollapsed={isOpen} /></>} />

@@ -9,7 +9,7 @@ export const get_calendar_events_by_date_range = async (start_date, end_date) =>
     }
 };
 
-export const add_calendar_event = async (event) => {
+export const add_calendar_event = async (calendarEvent) => {
     try{    
         const response = await http_context(`${API_URL}/events/sa-add-event`, {
             method: 'POST',
@@ -17,9 +17,8 @@ export const add_calendar_event = async (event) => {
                 'Content-Type': 'application/json'
             },  
             credentials: 'include',
-            body: JSON.stringify({
-                event: event
-            })
+            body: JSON.stringify(calendarEvent)
+
         });
 
         if (!response.ok) {

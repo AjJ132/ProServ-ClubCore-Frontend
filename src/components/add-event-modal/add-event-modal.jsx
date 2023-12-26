@@ -57,21 +57,6 @@ const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
 
     };
 
-    //set date to the date passed in from the calendar
-   useEffect(() => {
-    if (dateInput) {
-        const dateObject = new Date(dateInput);
-        const curTime = new Date();
-        const hr = curTime.getHours();
-        dateObject.setMinutes(0);
-        dateObject.setHours(hr);
-
-        setStartDate(dateObject);
-        let endDate = new Date(dateObject);
-        endDate.setHours(dateObject.getHours() + 1);
-        setEndDate(endDate);
-    }
-
     const handleAddEvent = async () => {
         //ensure title is not empty
         if (title === '') {
@@ -91,7 +76,8 @@ const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
             description: description,
             startDate: startDate,
             endDate: endDate,
-            color: color
+            color: color,
+            Event_ID: 0
         };
 
         //send api request
@@ -110,6 +96,23 @@ const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
             alert('Error adding event');
         }
     };
+
+    //set date to the date passed in from the calendar
+   useEffect(() => {
+    if (dateInput) {
+        const dateObject = new Date(dateInput);
+        const curTime = new Date();
+        const hr = curTime.getHours();
+        dateObject.setMinutes(0);
+        dateObject.setHours(hr);
+
+        setStartDate(dateObject);
+        let endDate = new Date(dateObject);
+        endDate.setHours(dateObject.getHours() + 1);
+        setEndDate(endDate);
+    }
+
+    
 }, [dateInput]);
     return (
         <div className="modal-frame">
@@ -118,7 +121,7 @@ const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
                     <h1>Add Event</h1>
                     <div className="line-divider mt-4"></div>
                 </div>
-                <div className="modal-body mt-8">
+                <div className="modal-body mt-8"> 
                     <div className="date-preview">
                         <div className="date-preview-box p-2">
                             <h3>{startDate.getDate()}</h3>
@@ -182,7 +185,7 @@ const AddEventModal = ({dateInput, onAddEvent, onClose}) => {
 
                         <div className="flex flex-row justify-center items-center gap-4 w-full mt-14 pl-8 pr-8">
                             <button className="cancel-btn" onClick={onClose}>Cancel</button>
-                            <button >Add</button>
+                            <button onClick={handleAddEvent} >Add</button>
                         </div>
                     </div>
                 </div>
