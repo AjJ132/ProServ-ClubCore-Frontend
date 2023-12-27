@@ -28,7 +28,6 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
 
   return (
     <div className={`navbar ${isCollapsed ? 'open' : 'collapsed'}`}>
-      {/* <img src={logo} alt="logo" className={isCollapsed ? 'logo' : 'logo-collapsed'} style={{ marginTop: '0.5rem', marginBottom: '2rem' }} /> */}
      <img src={logo} className={isCollapsed ? 'logo' : 'logo-collapsed'} alt="logo" height={64} width={64}/>
       <ProfileHeader isCollapsed={isCollapsed} />
         <div className="navbar-links-wrapper">
@@ -50,9 +49,13 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
                   {isCollapsed && ' Calendar'}
               </Link>
 
-            <a className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed  '}`} href='#messaging'>
-                <FontAwesomeIcon icon={faMessage} />{isCollapsed && ' Messaging'}
-            </a>  
+              <Link 
+                  to="/messages" 
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  <FontAwesomeIcon icon={faMessage} />
+                  {isCollapsed && ' Messages'}
+              </Link>
               
         </div>
 

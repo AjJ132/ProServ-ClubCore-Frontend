@@ -1,0 +1,29 @@
+.messenger-body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.messenger-page-header{
+    border-bottom: 1px solid var(--soft-gray);
+}
+
+.messenger-chat-list {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  height: 100%;
+  background-color: var(--secondary-color);
+}
+
+.messenger-chat-body {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--messenger-bg-offset);
+}
+
+

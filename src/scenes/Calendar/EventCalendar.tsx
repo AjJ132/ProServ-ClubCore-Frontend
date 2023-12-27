@@ -19,6 +19,7 @@ import { get_my_events } from "../../services/calendar-api-service";
 import '../../components/add-event-modal/add-event-modal.css'
 import ViewEventModal from "../../components/view-event-modal/view-event-modal";
 import { useLocation } from 'react-router-dom';
+import './Calendar.css'
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

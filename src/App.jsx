@@ -12,7 +12,8 @@ import EventCalendar from '/src/scenes/Calendar/EventCalendar';
 import { addDays, subDays } from "date-fns";
 
 
-import Calendar from './scenes/Calendar/Calendar';
+// import Calendar from './scenes/Calendar/Calendar';
+import Messenger from './scenes/messenger/messenger';
 import Navbar from './components/navbar/navbar';
 import './index.css';
 import Settings from './scenes/settings/settings';
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard /></>} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/calendar" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<EventCalendar /></>} />
+          <Route path="/messages" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Messenger /></>} />
           
         
           <Route path="/signup" element={<Signup />} />
