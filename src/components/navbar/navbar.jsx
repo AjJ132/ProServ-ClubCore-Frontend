@@ -13,7 +13,7 @@ import { test_api, validate_session } from '../../services/signin-api-service';
 //P3 remove all test code
 
 
-const Navbar = ({ isCollapsed, toggleNavbar }) => {
+const Navbar = ({ isCollapsed, toggleNavbar, collapseNavbar }) => {
 
     const handleTest = async () => {
         console.log('test');
@@ -34,14 +34,14 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
             <div onClick={toggleNavbar}>
                 <HamburgerBtn isCollapsed={isCollapsed} />
             </div>
-            <Link 
+            <Link onClick={collapseNavbar}
                   to="/" 
                   className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
               >
                   <FontAwesomeIcon icon={faHouse} />
                   {isCollapsed && ' Dashboard'}
               </Link>
-              <Link 
+              <Link onClick={collapseNavbar}
                   to="/calendar" 
                   className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
               >
@@ -49,7 +49,7 @@ const Navbar = ({ isCollapsed, toggleNavbar }) => {
                   {isCollapsed && ' Calendar'}
               </Link>
 
-              <Link 
+              <Link onClick={collapseNavbar}
                   to="/messages" 
                   className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
               >

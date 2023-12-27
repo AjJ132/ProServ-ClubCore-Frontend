@@ -26,6 +26,14 @@ const App = () => {
     setIsCollapsed(!isOpen);
   };
 
+  const collapseNavbar = () => {
+    console.log('collapseNavbar');
+    if (isOpen) {
+      setIsCollapsed(false);
+    }
+  }
+
+
   useEffect(() => {
     // const startup = async () => {
     //   const response = await get_user_info();
@@ -43,10 +51,10 @@ const App = () => {
     <Router>
       <div className="main-page-wrapper">
         <Routes>
-          <Route path="/" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Dashboard /></>} />
+          <Route path="/" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} collapseNavbar={collapseNavbar}/>}<Dashboard /></>} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/calendar" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<EventCalendar /></>} />
-          <Route path="/messages" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Messenger /></>} />
+          <Route path="/calendar" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} collapseNavbar={collapseNavbar} />}<EventCalendar /></>} />
+          <Route path="/messages" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} collapseNavbar={collapseNavbar}/>}<Messenger /></>} />
           
         
           <Route path="/signup" element={<Signup />} />
