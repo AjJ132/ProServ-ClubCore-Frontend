@@ -18,11 +18,11 @@ export const get_user_info = async () => {
         //Save to local storage
         const data = await response.json();
 
-        localStorage.setItem('first_name', data.first_Name);
-        localStorage.setItem('last_name', data.last_Name);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('team_name', data.team_Name);
-        localStorage.setItem('isInTeam', data.isInTeam);
+        sessionStorage.setItem('first_name', data.first_Name);
+        sessionStorage.setItem('last_name', data.last_Name);
+        sessionStorage.setItem('email', data.email);
+        sessionStorage.setItem('team_name', data.team_Name);
+        sessionStorage.setItem('isInTeam', data.isInTeam);
         
         //return first, last names and club name
         return true;
@@ -53,8 +53,8 @@ export const update_user_names = async (First_Name, Last_Name) => {
         }
 
         //save new names to local storage
-        localStorage.setItem('first_name', First_Name);
-        localStorage.setItem('last_name', Last_Name);
+        sessionStorage.setItem('first_name', First_Name);
+        sessionStorage.setItem('last_name', Last_Name);
         
         //retur first, last names and club name
         return true;

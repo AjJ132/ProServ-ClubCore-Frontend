@@ -35,7 +35,7 @@ const Dashboard = () => {
               <div className="flex justify-between items-center w-full">
                 <h2>
                   {/* Get first and last name from local storage*/} 
-                  Welcome back, {localStorage.getItem('first_name')} {localStorage.getItem('last_name')}!
+                  Welcome back, {sessionStorage.getItem('first_name')} {sessionStorage.getItem('last_name')}!
                 </h2>
                 <div className="flex flex-row gap-2 items-center">
                   <FontAwesomeIcon icon={faCalendarDays} />

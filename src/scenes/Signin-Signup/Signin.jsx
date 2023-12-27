@@ -3,6 +3,7 @@ import './Signin-Signup.css'
 import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
 import { signin_service, validate_session } from '../../services/signin-api-service';
 import {useNavigate} from 'react-router-dom';
+import { get_user_info } from '../../services/user-info-service';
 
 //P1: Figure out why the validate_session function is getting called twice
 
@@ -22,6 +23,9 @@ const Signin = () => {
 
             if (response) {
                 console.log('Login successful:', response);
+                //fetch user info
+                const get_user_info = await get_user_info();
+
                 //redirect to home page
                 navigate('/');
 

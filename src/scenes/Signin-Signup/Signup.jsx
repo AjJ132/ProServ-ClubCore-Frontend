@@ -81,14 +81,14 @@ const Signup = () => {
                 console.log('Signup successful. Saving cookie');
                
                 //store email in local storage
-                localStorage.setItem('email', username);
+                sessionStorage.setItem('email', username);
                 
                 //sign user in //TODO maybe find a better way to do this by overiding the signup function in ASP.NET
                 const signinResponse = await signin_service(username, password);
 
                 if (signinResponse == true) {
                     console.log('Signin successful. Saving cookie');
-                    localStorage.setItem('email', username);
+                    sessionStorage.setItem('email', username);
                     navigate('/update-names');
                 }
                 

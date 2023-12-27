@@ -35,15 +35,16 @@ const App = () => {
 
 
   useEffect(() => {
-    // const startup = async () => {
-    //   const response = await get_user_info();
+    //check session storage for infoPresent
+    const infoPresent = sessionStorage.getItem('infoPresent');
+    //if infoPresent is false or non-existent, fetch user info
+    if (infoPresent === 'false' || !infoPresent) {
+      console.log('fetching user info');
+      get_user_info();
 
-    //   if(response === false) {
-    //     window.location.href = '/update-names';
-    //   }
-    // }
-
-    // startup();
+      //set infoPresent to true
+      sessionStorage.setItem('infoPresent', 'true');
+    }
   }
   , []);
 

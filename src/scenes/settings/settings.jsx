@@ -18,23 +18,23 @@ const Settings = () => {
     useEffect(() => {
         const get_user_info = async () => {
             //Gather info for settings page
-            setIsInTeam(localStorage.getItem('isInTeam'));
+            setIsInTeam(sessionStorage.getItem('isInTeam'));
 
             if (isInTeam) {
-                var tN = await localStorage.getItem('team_name');
+                var tN = await sessionStorage.getItem('team_name');
                 setTeamName(tN); //P3 awful code. Optimize later
             }   
 
-            setFirstName(localStorage.getItem('first_name'));
-            setLastName(localStorage.getItem('last_name'));
-            setEmail(localStorage.getItem('email'));
+            setFirstName(sessionStorage.getItem('first_name'));
+            setLastName(sessionStorage.getItem('last_name'));
+            setEmail(sessionStorage.getItem('email'));
 
             var loc = await get_team_location();
 
-            var locStor = localStorage.getItem('team_location');
+            var locStor = sessionStorage.getItem('team_location');
 
             if (locStor !== loc) {
-                localStorage.setItem('team_location', loc);
+                sessionStorage.setItem('team_location', loc);
             };
 
             setTeamLocation(loc);

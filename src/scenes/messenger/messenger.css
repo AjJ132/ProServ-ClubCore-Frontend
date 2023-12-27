@@ -56,3 +56,18 @@
     height: 100%;
     background-color: var(--messenger-bg-offset);
   }
+
+  .new-chat button{
+    width: fit-content;
+    height: 100%;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    border-radius: 50%;
+  }
+
+    .new-chat button:hover{
+        background-color: var(--soft-gray);
+    }

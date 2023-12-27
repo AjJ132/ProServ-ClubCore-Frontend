@@ -15,7 +15,7 @@ const Missing_Names = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedEmail = localStorage.getItem('email');
+        const storedEmail = sessionStorage.getItem('email');
         if (storedEmail) {
             setEmail(storedEmail);
         }
@@ -55,7 +55,7 @@ const Missing_Names = () => {
 
             if (response) {
                 console.log('Info update successful:', response);
-                localStorage.removeItem('email');
+                sessionStorage.removeItem('email');
                 navigate('/');
 
             } else {

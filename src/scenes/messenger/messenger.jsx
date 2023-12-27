@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './messenger.css';
 import UserMessengerCard from '../../components/user-messenger-card/user-messenger-card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCommentMedical } from '@fortawesome/free-solid-svg-icons';
 
 const Messenger = () => {
+    useEffect(() => {
+
+
+    }, []);
     return (
         <div className="page-content">
             <div className="page-header messenger-page-header p-6">
@@ -11,10 +17,13 @@ const Messenger = () => {
             </div>
             <div className="messenger-body">
                 <div className="messenger-chat-list">
-                    <UserMessengerCard userName={`${localStorage.getItem('first_name')} ${localStorage.getItem('last_name')}`}/>
+                    <UserMessengerCard userName={`${sessionStorage.getItem('first_name')} ${sessionStorage.getItem('last_name')}`}/>
                     
-                    <div className="message-search-container">
+                    <div className="message-search-container new-chat">
                         <input type="text" placeholder="Search" />
+                        <button>
+                            <FontAwesomeIcon icon={faCommentMedical} size='xl' />
+                        </button>
                     </div>
                 </div>
                 <div className="messenger-chat-body">
