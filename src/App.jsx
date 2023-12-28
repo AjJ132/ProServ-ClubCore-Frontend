@@ -60,7 +60,7 @@ const App = () => {
         
           <Route path="/signup" element={<Signup />} />
           <Route path="/update-names" element={<Missing_Names />} />
-          <Route path="/settings" element={<>{isOpen && <Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} />}<Settings  isCollapsed={isOpen} /></>} />
+          <Route path="/settings" element={<>{<Navbar isCollapsed={isOpen} toggleNavbar={toggleNavbar} collapseNavbar={collapseNavbar} />}<Settings /></>} />
           <Route path="/join-team" element={<JoinTeam />} />
         </Routes>
       </div>

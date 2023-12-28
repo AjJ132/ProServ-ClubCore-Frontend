@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './Signin-Signup.css'
 import logo from '../../assets/ProServ-logos/ProServ-logo-upscale.png';
-import { signin_service, validate_session } from '../../services/signin-api-service';
+import { signin_service } from '../../services/signin-api-service';
 import {useNavigate} from 'react-router-dom';
-import { get_user_info } from '../../services/user-info-service';
+import { dev_create_test_data } from '../../services/dev-service';
 
 //P1: Figure out why the validate_session function is getting called twice
 
@@ -35,6 +35,16 @@ const Signin = () => {
         } catch (error) {
             //print error to console
             console.error(error);
+        }
+    };
+
+    const handleDevSvc = async () => {
+        const response = await dev_create_test_data();
+
+        if(response === false){
+            alert('dev service failed');
+        } else {
+            alert('dev service success');
         }
     };
 
@@ -76,6 +86,9 @@ const Signin = () => {
 
                 <div className="flex flex-row content-center justify-center gap-2 w-full pt-14">
                     <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+                </div>
+                <div className="flex flex-row content-center justify-center gap-2 w-full pt-14">
+                    <button className="login-btn" onClick={handleDevSvc}>Dev Service</button>
                 </div>
             </div>
         </div>

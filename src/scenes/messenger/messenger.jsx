@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './messenger.css';
 import UserMessengerCard from '../../components/user-messenger-card/user-messenger-card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentMedical } from '@fortawesome/free-solid-svg-icons';
+import NewMessageCard from './new-message-card';
 
 const Messenger = () => {
-    useEffect(() => {
+    const [isNewMessageCardOpen, setIsNewMessageCardOpen] = useState(false);
+    const handleShowNewMessageCard = () => {
+        setIsNewMessageCardOpen(true);
+    }
 
-
-    }, []);
     return (
         <div className="page-content">
             <div className="page-header messenger-page-header p-6">
@@ -21,7 +23,7 @@ const Messenger = () => {
                     
                     <div className="message-search-container new-chat">
                         <input type="text" placeholder="Search" />
-                        <button>
+                        <button onClick={handleShowNewMessageCard}>
                             <FontAwesomeIcon icon={faCommentMedical} size='xl' /> {/* TODO change icon because this is ugly */}
                         </button>
                     </div>
@@ -29,7 +31,9 @@ const Messenger = () => {
                 <div className="messenger-chat-body">
                 </div>
             </div>
+            {isNewMessageCardOpen && <NewMessageCard />}
         </div>
+        
     );
 };
 
