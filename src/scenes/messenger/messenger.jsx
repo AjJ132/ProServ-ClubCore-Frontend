@@ -22,7 +22,7 @@ const Messenger = () => {
                     <div className="message-search-container new-chat">
                         <input type="text" placeholder="Search" />
                         <button>
-                            <FontAwesomeIcon icon={faCommentMedical} size='xl' />
+                            <FontAwesomeIcon icon={faCommentMedical} size='xl' /> {/* TODO change icon because this is ugly */}
                         </button>
                     </div>
                 </div>
