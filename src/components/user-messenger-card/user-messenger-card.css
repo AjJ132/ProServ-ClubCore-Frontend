@@ -39,6 +39,17 @@
     margin: auto;
 }
 
+.new-message-card-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    padding: 8px;
+    border-bottom: 1px solid var(--soft-gray);
+}
+
 .options-button{
     display: flex;
     flex-direction: row;
@@ -56,4 +67,6 @@
     scale: 1.1;
     background-color: var(--calendar-bg-offset);
 }
+
+
 

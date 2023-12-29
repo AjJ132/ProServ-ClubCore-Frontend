@@ -1,9 +1,56 @@
 const API_URL = import.meta.env.VITE_ClubCore_Server_API;
 import { http_context } from './http-context.js';
 
+export const get_users_to_message = async () => {
+    try {
+        const response = await http_context(`${API_URL}/message/get-users-to-message`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+
+        return data;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+};
+
+export const get_users_to_message_filtered = async (searchTerm) => {
+    try {
+        const response = await http_context(`${API_URL}/message/get-users-to-message`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return;
+        }
+
+        const data = await response.json();
+        const users = data.users;
+
+        return users;
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+};
+
+
 export const create_direct_message_thread = async (User2_ID) => {  
     try {
-        const response = await http_context(`${API_URL}/message/create-direct-message-thread`, {
+        const response = await http_context(`${API_URL}/message/new-direct-message-thread`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -12,39 +59,36 @@ export const create_direct_message_thread = async (User2_ID) => {
             body: JSON.stringify({User2_ID}),
         });
         if (!response.ok) {
-            return;
+            return false;
         }
 
-        const data = await response.json();
-        const thread = data.thread;
-        
-        return thread;
+        return true;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         throw error;
     }
 }
 
+export const get_my_message_threads = async () => {
+    try {
+        const response = await http_context(`${API_URL}/message/get-my-message-threads`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return false;
+        }
 
-// export const get_team_location = async () => {
-//     try {
-//         const response = await http_context(`${API_URL}/Team/get-team-location`, {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },  
-//             credentials: 'include',
-//         });
-//         if (!response.ok) {
-//             return;
-//         }
+        const data = await response.json();
 
-//         const data = await response.json();
-//         const team_location = data.team_Location;
-        
-//         return team_location;
-//     } catch (error) {
-//         console.error('There was a problem with the fetch operation:', error);
-//         throw error;
-//     }
-// }
+        return data;
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+};
+
