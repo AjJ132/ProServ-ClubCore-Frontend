@@ -1,0 +1,21 @@
+.conversation-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    gap: 20px;
+}
+
+.conversation-card:hover{
+    background-color: var(--soft-hover-color);
+    cursor: pointer;
+}
+
+.conversation-card-selected{
+    background-color: var(--selected-color);
+    border-right: 4px solid var(--accent-color);
+}

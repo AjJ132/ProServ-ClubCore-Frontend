@@ -41,6 +41,8 @@
   --soft-hover-color: rgb(235, 235, 235);
   --soft-hover-color-2: rgb(191, 191, 191);
 
+  --selected-color: rgb(235, 235, 235);
+
   --navbar-width:275px;
   --navbar-width-colapsed: 80px;
   --navbar-transition-duration: 0.3s;
