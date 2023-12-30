@@ -92,3 +92,26 @@ export const get_my_message_threads = async () => {
     }
 };
 
+export const get_messages_for_direct_conversation = async (conversationID, pageIndex, pageSize) => {
+    try {
+        const response = await http_context(`${API_URL}/Message/Direct/${conversationID}/messages?conversationID=${conversationID}&pageIndex=${pageIndex}&pageSize=${pageSize}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+

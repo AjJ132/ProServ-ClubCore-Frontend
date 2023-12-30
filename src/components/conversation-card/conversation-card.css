@@ -17,5 +17,5 @@
 
 .conversation-card-selected{
     background-color: var(--selected-color);
-    border-right: 4px solid var(--accent-color);
+    border-left: 6px solid var(--accent-color);
 }

@@ -4,16 +4,18 @@ import UserMessengerCard from '../../components/user-messenger-card/user-messeng
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentMedical } from '@fortawesome/free-solid-svg-icons';
 import NewMessageCard from './new-message-card';
-import { get_my_message_threads } from '../../services/messenger-api-service';
+import { get_messages_for_direct_conversation, get_my_message_threads } from '../../services/messenger-api-service';
 import ConversationCard from '../../components/conversation-card/conversation-card';
-import { set } from 'date-fns';
 
 const Messenger = () => {
     const [loadingMessageThreads, setLoadingMessageThreads] = useState(true);
 
     const [isNewMessageCardOpen, setIsNewMessageCardOpen] = useState(false);
-    const [messages, setMessages] = useState([]);
+    const [conversations, setConversations] = useState([]);
     const [selectedConversationID, setSelectedConversationID] = useState(null);
+    const [selectedConversationType, setSelectedConversationType] = useState(null); // ['DIRECT', 'GROUP', 'OTHER']
+    const [conversationMessages, setConversationMessages] = useState([]);
+    const [conversationHasMessages, setConversationHasMessages] = useState(false);
 
 
 
@@ -23,20 +25,54 @@ const Messenger = () => {
 
     const handleCreateConversationClose = () => {
         setIsNewMessageCardOpen(false);
-
-        
     }
 
     const handleConversationClick = (conversation_ID) => {
+        //set selected conversation ID
         setSelectedConversationID(conversation_ID);
+
+        //fetch messages for conversation
+        fetchConversationMessages(conversation_ID);
     }
+
+    const fetchConversationMessages = async (conversation_ID) => {
+        //find type of conversation
+        var conversationType = conversations.find(conversation => conversation.conversation_ID === conversation_ID).conversation_Type;
+
+        //fetch messages
+        if(conversationType === 'DIRECT'){
+            //fetch direct messages
+            const messagesResponse = await get_messages_for_direct_conversation(conversation_ID, 1, 20);
+            console.log('messagesResponse:--');
+            console.log(messagesResponse);
+
+            if (messagesResponse !== false){
+                setConversationMessages(messagesResponse);
+
+                //if messagesResponse is empty, set conversationHasMessages to false
+                if (messagesResponse.length === 0){
+                    setConversationHasMessages(false);
+                } else {
+                    setConversationHasMessages(true);
+                }
+            } else {
+                console.error('error fetching messages');
+            }
+        } else if (conversationType === 'GROUP'){
+            //fetch group messages
+        } else {
+            console.error('conversation type not found');
+        };
+
+
+    };
 
     useEffect(() => {
         const fetchConversations = async () => {
-            var messages = await get_my_message_threads();
+            var conversationsResponse = await get_my_message_threads();
 
-            if (messages !== false){
-                setMessages(messages);
+            if (conversationsResponse !== false){
+                setConversations(conversationsResponse);
             } else {
                 console.error('error fetching messages');
             }
@@ -67,29 +103,29 @@ const Messenger = () => {
                         {loadingMessageThreads ? (
                             <div>Loading...</div>
                         ) : (
-                            messages.map((message) => {
-                                if (message.conversation_Type === 'DIRECT') {
+                            conversations.map((conversations) => {
+                                if (conversations.conversation_Type === 'DIRECT') {
                                     return (
                                         <ConversationCard
-                                            isSelected={selectedConversationID === message.conversation_ID}
-                                            name={message.user2_Name}
-                                            type={message.conversation_Type}
-                                            recentDate={message.lastMessageTimestamp}
-                                            conversation_id={message.conversation_ID}
+                                            isSelected={selectedConversationID === conversations.conversation_ID}
+                                            name={conversations.user2_Name}
+                                            type={conversations.conversation_Type}
+                                            recentDate={conversations.lastMessageTimestamp}
+                                            conversation_id={conversations.conversation_ID}
                                             conversationClicked={handleConversationClick}
-                                            key={message.conversation_ID}
+                                            key={conversations.conversation_ID}
                                         />
                                     );
                                 } else if (message.conversation_Type === 'GROUP') {
                                     return (
                                         <ConversationCard
-                                            isSelected={selectedConversationID === message.conversation_ID}
-                                            name={message.name}
-                                            type={message.conversation_Type}
-                                            recentDate={message.lastMessageTimestamp}
-                                            conversation_id={message.conversation_ID}
+                                            isSelected={selectedConversationID === conversations.conversation_ID}
+                                            name={conversations.name}
+                                            type={conversations.conversation_Type}
+                                            recentDate={conversations.lastMessageTimestamp}
+                                            conversation_id={conversations.conversation_ID}
                                             conversationClicked={handleConversationClick}
-                                            key={message.conversation_ID}
+                                            key={conversations.conversation_ID}
                                         />
                                     );
                                 } else {
@@ -100,6 +136,13 @@ const Messenger = () => {
                     </div>
                 </div>
                 <div className="messenger-chat-body">
+                    <div className="messenger-chat-messages">
+                        {conversationHasMessages ? (
+                            <div>messages</div>
+                        ) : (
+                            <div>No messages</div>
+                        )}
+                    </div>
                 </div>
             </div>
             {isNewMessageCardOpen && <NewMessageCard onClose={handleCreateConversationClose}/>}
