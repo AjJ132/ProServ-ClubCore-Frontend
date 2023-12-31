@@ -144,7 +144,7 @@ const NewMessageCard = ({onClose}) => {
                     </div>
                 </div>
                 <div className='modal-footer'>
-                    <button className="close-button">Close</button>
+                    <button className="close-button" onClick={onClose}>Close</button>
                     <button className="submit-button" onClick={hanleCreateConversation}>Create</button>
                 </div>
             </div>

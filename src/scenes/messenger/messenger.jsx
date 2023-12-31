@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './messenger.css';
 import UserMessengerCard from '../../components/user-messenger-card/user-messenger-card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentMedical } from '@fortawesome/free-solid-svg-icons';
+import { faCommentMedical, faPaperclip, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import NewMessageCard from './new-message-card';
 import { get_messages_for_direct_conversation, get_my_message_threads } from '../../services/messenger-api-service';
 import ConversationCard from '../../components/conversation-card/conversation-card';
@@ -96,7 +96,7 @@ const Messenger = () => {
                     <div className="message-search-container new-chat">
                         <input type="text" placeholder="Search" />
                         <button onClick={handleShowNewMessageCard}>
-                            <FontAwesomeIcon icon={faCommentMedical} size='xl' /> {/* TODO change icon because this is ugly */}
+                            <FontAwesomeIcon icon={faCommentMedical} size='xl' color='white' /> {/* TODO change icon because this is ugly */}
                         </button>
                     </div>
                     <div className="messenger-conversation-list">
@@ -135,14 +135,28 @@ const Messenger = () => {
                         )}
                     </div>
                 </div>
-                <div className="messenger-chat-body">
-                    <div className="messenger-chat-messages">
-                        {conversationHasMessages ? (
+               <div className="messenger-chat-body">
+                    {selectedConversationID !== null ? (
+                        conversationHasMessages ? (
                             <div>messages</div>
                         ) : (
-                            <div>No messages</div>
-                        )}
-                    </div>
+                            <div className="w-full h-full flex flex-col justify-center content-center">
+                                <h1 className="m-auto no-conversation-text">No messages</h1>
+                                <div className="messenger-input-container">
+                                    <FontAwesomeIcon icon={faPaperclip} size='xl' className="cursor-pointer"/>
+                                    <textarea placeholder="Send a message" maxLength={500}></textarea>
+                                    <button className="icon-button">
+                                        Send
+                                        <FontAwesomeIcon icon={faPaperPlane} />
+                                    </button>
+                                </div>
+                            </div>
+                        )
+                    ) : (
+                        <div className="w-full h-full flex flex-col justify-center content-center">
+                            <h1 className="m-auto no-conversation-text">Please select a conversation</h1>
+                        </div>
+                    )}
                 </div>
             </div>
             {isNewMessageCardOpen && <NewMessageCard onClose={handleCreateConversationClose}/>}

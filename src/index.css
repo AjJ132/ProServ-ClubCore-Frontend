@@ -40,6 +40,8 @@
   --hover-color: #a7a7a71e;
   --soft-hover-color: rgb(235, 235, 235);
   --soft-hover-color-2: rgb(191, 191, 191);
+  --soft-hover-color-3: rgb(167, 167, 167);
+
 
   --selected-color: rgb(235, 235, 235);
 
@@ -178,15 +180,27 @@ button:hover {
 }
 
 input {
-  border-radius: 2px;
-  border: 1px solid var(--soft-gray);
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--secondary-color);
-  cursor: pointer;
-  transition: border-color 0.25s;
-  padding-left: 10px ;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: none;
+  background-color: var(--calendar-bg-offset);
+  color: var(--soft-gray);
+  border-radius: 24px;
+
+  border: 1px solid var(--tertiary-color);
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: none;
+  background-color: var(--calendar-bg-offset);
+  color: var(--soft-gray);
+  border-radius: 24px;
+
+  border: 1px solid var(--tertiary-color);
 }
 
 .button-secondary{
@@ -245,8 +259,3 @@ input[type="checkbox"]:focus {
   outline: none; /* Removes outline on focus */
   border-color: var(--accent-color); /* Highlight color when focused */
 }
-
-.test{
-
-}
-

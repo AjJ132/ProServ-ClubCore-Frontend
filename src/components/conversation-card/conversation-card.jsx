@@ -24,10 +24,10 @@ const ConversationCard = ({isSelected, name, type, recentDate, conversation_id, 
             <div className={`conversation-card ${isSelected ? 'conversation-card-selected' : ''}`} onClick={() => conversationClicked(conversation_id)}>
                 {isGroup ? <FontAwesomeIcon icon={faUsers} size='2xl' /> : <FontAwesomeIcon icon={faUser} size='2xl' />}
                 <div className="flex flex-col">
-                    <h1 className="text-lg font-semibold">{name}</h1>
+                    <span>{name}</span>
                 </div>
                 <div className="flex flex-col ml-auto">
-                    <h1 className="text-sm font-semibold">{recentDate}</h1>
+                    <h2>{recentDate}</h2>
                 </div>
             </div>
         );

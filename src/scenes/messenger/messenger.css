@@ -29,6 +29,7 @@
     height: fit-content;
     background-color: var(--secondary-color);
     padding: 1rem;
+    gap: 10px;
 
     border-style: solid;
     border-color: var(--soft-gray);
@@ -48,16 +49,6 @@
   justify-content: space-between;
 
   gap: 40px
-}
-
-.message-search-container input{
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    border: none;
-    background-color: var(--calendar-bg-offset);
-    color: var(--soft-gray);
-    border-radius: 24px;
 }
 
 .dropdown-menu{
@@ -191,16 +182,18 @@
   .new-chat button{
     width: fit-content;
     height: 100%;
-    background-color: var(--secondary-color);
+    background-color: var(--soft-gray);
     color: var(--primary-color);
     border: none;
     cursor: pointer;
     transition: background-color 0.25s;
-    border-radius: 50%;
+
+    padding: 8px !important;
+    border-radius: 10px !important;
   }
 
     .new-chat button:hover{
-        background-color: var(--soft-gray);
+        background-color: var(--soft-hover-color-3);
     }
 
 
@@ -210,4 +203,40 @@
   width: 100%;
   height: 100%;
   background-color: var(--secondary-color);
+
+  border-right: 1px solid var(--soft-gray);
+}
+
+.no-conversation-text{
+  color: var(--soft-gray);
+}
+
+.messenger-input-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    background-color: var(--secondary-color);
+    padding: 24px;
+
+    gap: 12px;
+
+    border-style: solid;
+    border-color: var(--soft-gray);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+    box-sizing: border-box;
+}
+
+.messenger-input-container textarea{
+  height: auto;
+  overflow-x:hidden; /* Hide vertical scrollbar */
+  overflow-y:auto; /* Hide horizontal scrollbar */
+  resize: vertical; /* Prevent resizing which could also show a scrollbar */
+  max-height: 120px;
+  min-height: 50px;
 }
