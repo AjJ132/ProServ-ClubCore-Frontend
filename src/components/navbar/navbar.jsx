@@ -8,8 +8,9 @@ import NavbarFooter from './navbar-footer';
 import { Link } from 'react-router-dom';
 import HamburgerBtn from '../Hamburger-btn/hamburger-btn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMessage, faCalendarDays, faHouse, faAlignLeft } from '@fortawesome/free-solid-svg-icons';
+import { faMessage, faCalendarDays, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { test_api, validate_session } from '../../services/signin-api-service';
+import { dev_test_authentication } from '../../services/dev-service';
 //P3 remove all test code
 
 
@@ -25,6 +26,17 @@ const Navbar = ({ isCollapsed, toggleNavbar, collapseNavbar }) => {
             console.log('Session invalid. Please login.');
         }
     };
+
+    const handleTestAuthenticationClick = async () => {
+        console.log('test authentication');
+        const response = await dev_test_authentication();
+
+        if (response === true) {
+            alert('Success');
+        }else{
+            alert('Failure');
+        }
+    }
 
   return (
     <div className={`navbar ${isCollapsed ? 'open' : 'collapsed'}`}>
@@ -56,6 +68,12 @@ const Navbar = ({ isCollapsed, toggleNavbar, collapseNavbar }) => {
                   <FontAwesomeIcon icon={faMessage} />
                   {isCollapsed && ' Messages'}
               </Link>
+              <button onClick={handleTestAuthenticationClick}
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  {/* <FontAwesomeIcon icon={faDev} /> */}
+                  {isCollapsed && ' DEV_AUTHENTICATION'}
+              </button>
               
         </div>
 

@@ -19,3 +19,22 @@ export const dev_create_test_data = async () => {
         throw error;
     }
 };
+
+export const dev_test_authentication = async () => {
+    try {
+        const response = await http_context(`${API_URL}/dev/test-authentication`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
+        if (!response.ok) {
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error('There was a problem with the dev operation:', error);
+        throw error;
+    }
+};

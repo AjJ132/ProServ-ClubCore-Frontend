@@ -10,7 +10,7 @@ export const http_context = async (url, options) => {
 
         return response;
     } catch (error) {
-        alert('PROB MISSING COOKIE');
+        alert('Server Offline');
         console.error('HTTP Context Error Thrown: ', error);
         throw error;
     }

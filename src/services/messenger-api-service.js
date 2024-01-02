@@ -115,3 +115,28 @@ export const get_messages_for_direct_conversation = async (conversationID, pageI
     }
 }
 
+export const send_Direct_Message = async (conversationID, message) => {
+    try {
+        const response = await http_context(`${API_URL}/Message/Direct/${conversationID}/send-message?conversationID=${conversationID}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(message),
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    }
+    catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+

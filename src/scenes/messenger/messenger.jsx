@@ -4,7 +4,7 @@ import UserMessengerCard from '../../components/user-messenger-card/user-messeng
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentMedical, faPaperclip, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import NewMessageCard from './new-message-card';
-import { get_messages_for_direct_conversation, get_my_message_threads } from '../../services/messenger-api-service';
+import { get_messages_for_direct_conversation, get_my_message_threads, send_Direct_Message } from '../../services/messenger-api-service';
 import ConversationCard from '../../components/conversation-card/conversation-card';
 
 const Messenger = () => {
@@ -16,6 +16,7 @@ const Messenger = () => {
     const [selectedConversationType, setSelectedConversationType] = useState(null); // ['DIRECT', 'GROUP', 'OTHER']
     const [conversationMessages, setConversationMessages] = useState([]);
     const [conversationHasMessages, setConversationHasMessages] = useState(false);
+    const [newMessage, setNewMessage] = useState(''); 
 
 
 
@@ -30,6 +31,10 @@ const Messenger = () => {
     const handleConversationClick = (conversation_ID) => {
         //set selected conversation ID
         setSelectedConversationID(conversation_ID);
+
+        //clear newMessage
+        setNewMessage(''); 
+        setSelectedConversationType(conversations.find(conversation => conversation.conversation_ID === conversation_ID).conversation_Type);
 
         //fetch messages for conversation
         fetchConversationMessages(conversation_ID);
@@ -61,10 +66,38 @@ const Messenger = () => {
         } else if (conversationType === 'GROUP'){
             //fetch group messages
         } else {
+            console
             console.error('conversation type not found');
+            console.error(conversationType);
         };
 
 
+    };
+
+    const handleMessageSend = async () => {
+        //check if message is empty
+        if (newMessage === ''){
+            return;
+        }
+
+        //detect conversation type
+        if (selectedConversationType === 'DIRECT'){
+            //send direct message
+            var messageSendResponse = await send_Direct_Message(selectedConversationID, newMessage);
+
+            if (messageSendResponse !== false){
+                //add message to conversationMessages
+                setConversationMessages([...conversationMessages, messageSendResponse]);
+                setNewMessage('');
+            } else {
+                console.error('error sending message');
+            }
+        } else if (selectedConversationType === 'GROUP'){
+            //send group message
+        } else {
+            console.error('conversation type not found');
+            console.error(selectedConversationType);
+        }
     };
 
     useEffect(() => {
@@ -144,8 +177,8 @@ const Messenger = () => {
                                 <h1 className="m-auto no-conversation-text">No messages</h1>
                                 <div className="messenger-input-container">
                                     <FontAwesomeIcon icon={faPaperclip} size='xl' className="cursor-pointer"/>
-                                    <textarea placeholder="Send a message" maxLength={500}></textarea>
-                                    <button className="icon-button">
+                                    <textarea placeholder="Send a message" maxLength={500} value={newMessage} onChange={(e) => setNewMessage(e.target.value)}></textarea>
+                                    <button className="icon-button" onClick={handleMessageSend}>
                                         Send
                                         <FontAwesomeIcon icon={faPaperPlane} />
                                     </button>
