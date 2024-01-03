@@ -4,8 +4,9 @@ import UserMessengerCard from '../../components/user-messenger-card/user-messeng
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentMedical, faPaperclip, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import NewMessageCard from './new-message-card';
-import { get_messages_for_direct_conversation, get_my_message_threads, send_Direct_Message } from '../../services/messenger-api-service';
+import { get_messages_for_direct_conversation, get_my_message_threads, mark_direct_message_as_read, send_Direct_Message } from '../../services/messenger-api-service';
 import ConversationCard from '../../components/conversation-card/conversation-card';
+import MessageBubble from '../../components/message-bubble/MessageBubble';
 
 const Messenger = () => {
     const [loadingMessageThreads, setLoadingMessageThreads] = useState(true);
@@ -29,6 +30,12 @@ const Messenger = () => {
     }
 
     const handleConversationClick = (conversation_ID) => {
+        //if conversation is already selected, do nothing
+        if (selectedConversationID === conversation_ID){
+            return;
+        }
+
+        
         //set selected conversation ID
         setSelectedConversationID(conversation_ID);
 
@@ -38,6 +45,8 @@ const Messenger = () => {
 
         //fetch messages for conversation
         fetchConversationMessages(conversation_ID);
+
+        
     }
 
     const fetchConversationMessages = async (conversation_ID) => {
@@ -59,6 +68,13 @@ const Messenger = () => {
                     setConversationHasMessages(false);
                 } else {
                     setConversationHasMessages(true);
+
+                    const user_ID = sessionStorage.getItem('user_ID');
+
+                    // if any messages are unread from the other user, mark them as read
+                    if (messagesResponse.some(message => message.seen === false && message.sender_ID !== user_ID)){
+                        await mark_direct_message_as_read(conversation_ID);
+                    }
                 }
             } else {
                 console.error('error fetching messages');
@@ -87,7 +103,7 @@ const Messenger = () => {
 
             if (messageSendResponse !== false){
                 //add message to conversationMessages
-                setConversationMessages([...conversationMessages, messageSendResponse]);
+                setConversationMessages([messageSendResponse, ...conversationMessages]);
                 setNewMessage('');
             } else {
                 console.error('error sending message');
@@ -117,7 +133,7 @@ const Messenger = () => {
     }, []);
 
     return (
-        <div className="page-content">
+        <div className="page-content overflow-y-hidden">
             <div className="page-header messenger-page-header p-6">
                 <h1>Messenger</h1>
                 {/* <div className="line-divider mt-4"></div> */}
@@ -136,42 +152,84 @@ const Messenger = () => {
                         {loadingMessageThreads ? (
                             <div>Loading...</div>
                         ) : (
-                            conversations.map((conversations) => {
-                                if (conversations.conversation_Type === 'DIRECT') {
-                                    return (
-                                        <ConversationCard
-                                            isSelected={selectedConversationID === conversations.conversation_ID}
-                                            name={conversations.user2_Name}
-                                            type={conversations.conversation_Type}
-                                            recentDate={conversations.lastMessageTimestamp}
-                                            conversation_id={conversations.conversation_ID}
-                                            conversationClicked={handleConversationClick}
-                                            key={conversations.conversation_ID}
-                                        />
-                                    );
-                                } else if (message.conversation_Type === 'GROUP') {
-                                    return (
-                                        <ConversationCard
-                                            isSelected={selectedConversationID === conversations.conversation_ID}
-                                            name={conversations.name}
-                                            type={conversations.conversation_Type}
-                                            recentDate={conversations.lastMessageTimestamp}
-                                            conversation_id={conversations.conversation_ID}
-                                            conversationClicked={handleConversationClick}
-                                            key={conversations.conversation_ID}
-                                        />
-                                    );
-                                } else {
-                                    return null; // Handle other conversation types here
+                            conversations
+                            .sort((a, b) => {
+                                // If both timestamps are null, they are equal
+                                if (a.lastMessageTimestamp === null && b.lastMessageTimestamp === null) {
+                                    return 0;
                                 }
+                                // If a's timestamp is null, b comes first
+                                if (a.lastMessageTimestamp === null) {
+                                    return 1;
+                                }
+                                // If b's timestamp is null, a comes first
+                                if (b.lastMessageTimestamp === null) {
+                                    return -1;
+                                }
+                                // If neither are null, sort by timestamp
+                                return b.lastMessageTimestamp - a.lastMessageTimestamp;
                             })
+                                .map((conversations) => {
+                                    if (conversations.conversation_Type === 'DIRECT') {
+                                        return (
+                                            <ConversationCard
+                                                isSelected={selectedConversationID === conversations.conversation_ID}
+                                                name={conversations.user2_Name}
+                                                type={conversations.conversation_Type}
+                                                recentDate={conversations.lastMessageTimestamp}
+                                                conversation_id={conversations.conversation_ID}
+                                                conversationClicked={handleConversationClick}
+                                                hasUnreadMessagesProp={conversations.hasUnreadMessages}
+                                                key={conversations.conversation_ID}
+                                            />
+                                        );
+                                    } else if (message.conversation_Type === 'GROUP') {
+                                        return (
+                                            <ConversationCard
+                                                isSelected={selectedConversationID === conversations.conversation_ID}
+                                                name={conversations.name}
+                                                type={conversations.conversation_Type}
+                                                recentDate={conversations.lastMessageTimestamp}
+                                                conversation_id={conversations.conversation_ID}
+                                                conversationClicked={handleConversationClick}
+                                                hasUnreadMessagesProp={conversations.hasUnreadMessages}
+                                                key={conversations.conversation_ID}
+                                            />
+                                        );
+                                    } else {
+                                        return null; // Handle other conversation types here
+                                    }
+                                })
                         )}
                     </div>
                 </div>
                <div className="messenger-chat-body">
                     {selectedConversationID !== null ? (
                         conversationHasMessages ? (
-                            <div>messages</div>
+                            <div className="messenger-chat-body-container">
+                                <div className="messenger-messages-container">
+                                    <div className="messenger-messages-container-chat-list">
+                                        <div className="messenger-messages-reverse-infinite-scroll">
+                                            {conversationMessages.map((message, index) => (
+                                                <MessageBubble
+                                                    key={index}
+                                                    message={message}
+                                                    isOwnMessage={message.sender_ID === sessionStorage.getItem('user_ID')}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="messenger-input-container">
+                                    <FontAwesomeIcon icon={faPaperclip} size='xl' className="cursor-pointer"/>
+                                    <textarea placeholder="Send a message" maxLength={250} value={newMessage} onChange={(e) => setNewMessage(e.target.value)}></textarea>
+                                    <button className="icon-button" onClick={handleMessageSend}>
+                                        Send
+                                        <FontAwesomeIcon icon={faPaperPlane} />
+                                    </button>
+                                </div>
+                            </div>
+
                         ) : (
                             <div className="w-full h-full flex flex-col justify-center content-center">
                                 <h1 className="m-auto no-conversation-text">No messages</h1>

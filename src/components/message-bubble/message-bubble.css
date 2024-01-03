@@ -1,0 +1,41 @@
+.message-bubble-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: fit-content;
+    gap: 10px;
+    padding: 10px;
+}
+
+.message-bubble-container p{
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+.message-bubble {
+    background-color: #f0f0f0;
+    border-radius: 14px;
+    max-width: 50%;
+    height: fit-content;
+    word-wrap: break-word;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 14px;
+}
+
+
+.own-message {
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+}
+
+.not-own-message {
+    background-color: #f0f0f0;
+    color: black;
+    margin-right: auto;
+}

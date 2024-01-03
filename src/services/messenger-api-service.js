@@ -140,3 +140,25 @@ export const send_Direct_Message = async (conversationID, message) => {
     }
 }
 
+export const mark_direct_message_as_read = async (conversation_ID) => {
+    try {
+        const response = await http_context(`${API_URL}/Message/Direct/${conversation_ID}/mark-as-read?conversationID=${conversation_ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        return true;
+
+    }
+    catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+

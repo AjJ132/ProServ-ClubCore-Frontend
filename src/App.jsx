@@ -7,7 +7,7 @@ import Signin from './scenes/Signin-Signup/Signin';
 import Signup from './scenes/Signin-Signup/Signup';
 import Missing_Names from './scenes/Signin-Signup/missing-names';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { get_user_info } from './services/user-info-service';
+import { check_session_storage, get_user_info } from './services/user-info-service';
 import EventCalendar from '/src/scenes/Calendar/EventCalendar';
 import { addDays, subDays } from "date-fns";
 
@@ -35,18 +35,18 @@ const App = () => {
 
 
   useEffect(() => {
-    //check session storage for infoPresent
-    const infoPresent = sessionStorage.getItem('infoPresent');
-    //if infoPresent is false or non-existent, fetch user info
-    if (infoPresent === 'false' || !infoPresent) {
-      console.log('fetching user info');
-      get_user_info();
+     const checkSession = async () => {
+          var valid = await check_session_storage();
 
-      //set infoPresent to true
-      sessionStorage.setItem('infoPresent', 'true');
-    }
-  }
-  , []);
+        if (!valid) {
+          var user_info = await get_user_info();
+          console.log(user_info);
+        } else {
+          console.log('Valid');
+        }
+      };
+    checkSession();
+  }, []);
 
   return (
     <Router>
