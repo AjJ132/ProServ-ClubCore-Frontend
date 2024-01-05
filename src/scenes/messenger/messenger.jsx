@@ -220,7 +220,7 @@ const Messenger = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="messenger-input-container">
+                                <div className="messenger-input-container" style={{paddingBottom: '128px'}}>  {/*please fix me lol this is horrible P3 */}
                                     <FontAwesomeIcon icon={faPaperclip} size='xl' className="cursor-pointer"/>
                                     <textarea placeholder="Send a message" maxLength={250} value={newMessage} onChange={(e) => setNewMessage(e.target.value)}></textarea>
                                     <button className="icon-button" onClick={handleMessageSend}>

@@ -59,6 +59,11 @@ export const create_direct_message_thread = async (User2_ID) => {
             body: JSON.stringify({User2_ID}),
         });
         if (!response.ok) {
+            //check if response says "DC Already Exists"
+            if (response.status === 409) {
+                return 409;
+            }
+
             return false;
         }
 

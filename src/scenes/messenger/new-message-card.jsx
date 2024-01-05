@@ -6,6 +6,7 @@ const NewMessageCard = ({onClose}) => {
     const [searchResults, setSearchResults] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [hasMultipleUsersSelected, setHasMultipleUsersSelected] = useState(false);
 
     useEffect(() => {
         console.log("init fetch users");
@@ -29,11 +30,25 @@ const NewMessageCard = ({onClose}) => {
     
 
     const handleSelectUser = (user) => {
-        console.log("handleSelectUser");
+        console.log(selectedUsers);
+
         setSelectedUsers([...selectedUsers, user]);
 
         // remove user from search results
         setSearchResults(searchResults.filter(result => result.user_ID !== user.user_ID));
+
+        // determine if multiple users are selected
+        setHasMultipleUsersSelected(false);
+
+        console.log(selectedUsers);
+
+        //if there are multiple users selected, hide the dropdown
+        if (selectedUsers.length > 1) {
+            console.log("multiple users selected");
+            setHasMultipleUsersSelected(true);
+        } 
+
+        
 
         setShowDropdown(false);
     };
@@ -46,7 +61,7 @@ const NewMessageCard = ({onClose}) => {
         setSearchResults([...searchResults, user]);
     };
 
-    const hanleCreateConversation = async () => {
+    const handleCreateConversation = async () => {
         console.log("hanleCreateConversation");
 
         //first check if there are users selected
@@ -61,6 +76,8 @@ const NewMessageCard = ({onClose}) => {
 
             if (response === true){
                 onClose();
+            } else if (response === 409) {
+                alert("A conversation with this user already exists.");
             } else {
                 alert("Something went wrong. Please try again.");
             }
@@ -145,7 +162,11 @@ const NewMessageCard = ({onClose}) => {
                 </div>
                 <div className='modal-footer'>
                     <button className="close-button" onClick={onClose}>Close</button>
-                    <button className="submit-button" onClick={hanleCreateConversation}>Create</button>
+                    { hasMultipleUsersSelected ? ((
+                        <button className="submit-button" onClick={handleCreateConversation}>Create Group</button>
+                    )) : ((
+                        <button className="submit-button" onClick={handleCreateConversation}>Create</button>
+                    ))}
                 </div>
             </div>
         </div>
