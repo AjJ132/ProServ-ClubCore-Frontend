@@ -7,6 +7,8 @@ const NewMessageCard = ({onClose}) => {
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [hasMultipleUsersSelected, setHasMultipleUsersSelected] = useState(false);
+    const [newGroupName, setNewGroupName] = useState('');
+    const [isPrivate, setIsPrivate] = useState(false);
 
     useEffect(() => {
         console.log("init fetch users");
@@ -30,28 +32,26 @@ const NewMessageCard = ({onClose}) => {
     
 
     const handleSelectUser = (user) => {
-        console.log(selectedUsers);
-
-        setSelectedUsers([...selectedUsers, user]);
-
+        const updatedSelectedUsers = [...selectedUsers, user];
+    
+        setSelectedUsers(updatedSelectedUsers);
+    
         // remove user from search results
         setSearchResults(searchResults.filter(result => result.user_ID !== user.user_ID));
-
+    
         // determine if multiple users are selected
-        setHasMultipleUsersSelected(false);
-
-        console.log(selectedUsers);
-
-        //if there are multiple users selected, hide the dropdown
-        if (selectedUsers.length > 1) {
+        const multipleUsersSelected = updatedSelectedUsers.length > 1;
+        setHasMultipleUsersSelected(multipleUsersSelected);
+    
+        console.log(updatedSelectedUsers);
+    
+        if (multipleUsersSelected) {
             console.log("multiple users selected");
-            setHasMultipleUsersSelected(true);
         } 
-
-        
-
+    
         setShowDropdown(false);
     };
+    
 
     const handleRemoveUser = (user) => {
         console.log("handleRemoveUser");
@@ -84,8 +84,21 @@ const NewMessageCard = ({onClose}) => {
             
         } else {
             //group conversation
-            //TODO
-            alert("Group conversations are not yet supported.");
+            //check group name
+            if (newGroupName === '') {
+                alert("Please enter a group name.");
+                return;
+            }
+
+            //ensure multiple users are selected //Should never be false
+            if (selectedUsers.length < 2) {
+                alert("Please select at least two users to create a group conversation.");
+                return;
+            }
+
+            //create group conversation
+            
+
         }
 
     }
@@ -160,6 +173,25 @@ const NewMessageCard = ({onClose}) => {
                         </div>
                     </div>
                 </div>
+                { hasMultipleUsersSelected ? ((
+                    <div className="flex flex-row w-full justify-start p-6 gap-6">
+                        <div className="flex flex-col gap-0 content-start">
+                            <p>Group Name</p>
+                            <input type="text" placeholder="Group Name" value={newGroupName} onChange={(e) => setNewGroupName(e.target.value)} />
+                        </div>
+                        <div className="flex flex-col gap-0 content-start ml-6">
+                            <p>Private</p>
+                            <label className="switch">
+                                <input type="checkbox" onChange={(e) => setIsPrivate(e.target.checked)} />
+                                <span className="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                )) : ((
+                    <>
+
+                    </>
+                ))}
                 <div className='modal-footer'>
                     <button className="close-button" onClick={onClose}>Close</button>
                     { hasMultipleUsersSelected ? ((

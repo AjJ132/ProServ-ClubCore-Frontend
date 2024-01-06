@@ -167,3 +167,25 @@ export const mark_direct_message_as_read = async (conversation_ID) => {
     }
 }
 
+export const create_group_conversation = async (newGroupConversation) => {
+    try {
+        const response = await http_context(`${API_URL}/message/new-group-message-thread`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(newGroupConversation),
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        return true;
+    }
+    catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+
