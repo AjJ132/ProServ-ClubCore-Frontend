@@ -181,7 +181,7 @@ export const create_group_conversation = async (newGroupConversation) => {
             return false;
         }
 
-        //return back data.. FIX THIS IN VS
+        return back data.. FIX THIS IN VS. Add handling for Direct Messages as well.
     }
     catch (error) {
         console.error('There was a problem with the fetch operation:', error);
