@@ -50,7 +50,7 @@ export const get_users_to_message_filtered = async (searchTerm) => {
 
 export const create_direct_message_thread = async (User2_ID) => {  
     try {
-        const response = await http_context(`${API_URL}/message/new-direct-message-thread`, {
+        const response = await http_context(`${API_URL}/message/direct/new-direct-message-thread`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -169,7 +169,7 @@ export const mark_direct_message_as_read = async (conversation_ID) => {
 
 export const create_group_conversation = async (newGroupConversation) => {
     try {
-        const response = await http_context(`${API_URL}/message/new-group-message-thread`, {
+        const response = await http_context(`${API_URL}/message/group/new-group-message-thread`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -181,7 +181,7 @@ export const create_group_conversation = async (newGroupConversation) => {
             return false;
         }
 
-        return true;
+        //return back data.. FIX THIS IN VS
     }
     catch (error) {
         console.error('There was a problem with the fetch operation:', error);
