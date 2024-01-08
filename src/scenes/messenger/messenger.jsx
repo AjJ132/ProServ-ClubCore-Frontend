@@ -4,7 +4,7 @@ import UserMessengerCard from '../../components/user-messenger-card/user-messeng
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentMedical, faPaperclip, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import NewMessageCard from './new-message-card';
-import { get_messages_for_direct_conversation, get_my_message_threads, mark_direct_message_as_read, send_Direct_Message } from '../../services/messenger-api-service';
+import { get_messages_for_direct_conversation, get_messages_for_group_conversation, get_my_message_threads, mark_direct_message_as_read, mark_group_message_as_seen, send_Direct_Message, send_Group_Message } from '../../services/messenger-api-service';
 import ConversationCard from '../../components/conversation-card/conversation-card';
 import MessageBubble from '../../components/message-bubble/MessageBubble';
 
@@ -35,7 +35,6 @@ const Messenger = () => {
             return;
         }
 
-        
         //set selected conversation ID
         setSelectedConversationID(conversation_ID);
 
@@ -80,7 +79,31 @@ const Messenger = () => {
                 console.error('error fetching messages');
             }
         } else if (conversationType === 1){
-            //fetch group messages
+            const messageResponse = await get_messages_for_group_conversation(conversation_ID, 1, 20);
+
+            if (messageResponse !== false){
+                setConversationMessages(messageResponse);
+
+                //if messagesResponse is empty, set conversationHasMessages to false
+                if (messageResponse.length === 0){
+                    setConversationHasMessages(false);
+                } else {
+                    setConversationHasMessages(true);
+                }
+
+                //update UserConversationSeen status
+                var updateSeenStatus = await mark_group_message_as_seen(conversation_ID);
+
+                if (updateSeenStatus === false){
+                    console.error('error updating seen status');
+                }
+
+                
+
+            } else {
+                console.error('error fetching messages');
+            }
+            
         } else {
             console
             console.error('conversation type not found');
@@ -97,7 +120,7 @@ const Messenger = () => {
         }
 
         //detect conversation type
-        if (selectedConversationType === 'DIRECT'){
+        if (selectedConversationType === 0){
             //send direct message
             var messageSendResponse = await send_Direct_Message(selectedConversationID, newMessage);
 
@@ -108,8 +131,17 @@ const Messenger = () => {
             } else {
                 console.error('error sending message');
             }
-        } else if (selectedConversationType === 'GROUP'){
+        } else if (selectedConversationType === 1){
             //send group message
+            var messageSendResponse = await send_Group_Message(selectedConversationID, newMessage);
+
+            if (messageSendResponse !== false){
+                //add message to conversationMessages
+                setConversationMessages([messageSendResponse, ...conversationMessages]);
+                setNewMessage('');
+            } else {
+                console.error('error sending message');
+            }
         } else {
             console.error('conversation type not found');
             console.error(selectedConversationType);

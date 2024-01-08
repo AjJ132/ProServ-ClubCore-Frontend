@@ -190,3 +190,73 @@ export const create_group_conversation = async (newGroupConversation) => {
     }
 }
 
+export const get_messages_for_group_conversation = async (conversationID, pageIndex, pageSize) => {
+    try {
+        const response = await http_context(`${API_URL}/Message/Group/${conversationID}/messages?conversationID=${conversationID}&pageIndex=${pageIndex}&pageSize=${pageSize}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+
+export const send_Group_Message = async (conversationID, message) => {
+    try {
+        const response = await http_context(`${API_URL}/Message/Group/${conversationID}/send-message?conversationID=${conversationID}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(message),
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    }
+    catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+
+export const mark_group_message_as_seen = async (conversation_ID) => {
+    try {
+        const response = await http_context(`${API_URL}/Message/Group/${conversation_ID}/mark-as-seen?conversationID=${conversation_ID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        return true;
+
+    }
+    catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+
