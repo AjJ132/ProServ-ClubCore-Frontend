@@ -47,6 +47,29 @@ export const get_users_to_message_filtered = async (searchTerm) => {
     }
 };
 
+export const get_conversation_members = async (conversationID, conversationType) => {
+    try {
+        const response = await http_context(`${API_URL}/message/get-conversation-members?conversationID=${conversationID}&conversationType=${conversationType}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+        });
+        if (!response.ok) {
+            return false;
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        throw error;
+    }
+}
+
 
 export const create_direct_message_thread = async (User2_ID) => {  
     try {
@@ -259,4 +282,5 @@ export const mark_group_message_as_seen = async (conversation_ID) => {
         throw error;
     }
 }
+
 
