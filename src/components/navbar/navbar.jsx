@@ -10,7 +10,7 @@ import HamburgerBtn from '../Hamburger-btn/hamburger-btn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage, faCalendarDays, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { test_api, validate_session } from '../../services/signin-api-service';
-import { dev_test_authentication } from '../../services/dev-service';
+import { dev_test_authentication, dev_remove_message_data } from '../../services/dev-service';
 //P3 remove all test code
 
 
@@ -30,6 +30,17 @@ const Navbar = ({ isCollapsed, toggleNavbar, collapseNavbar }) => {
     const handleTestAuthenticationClick = async () => {
         console.log('test authentication');
         const response = await dev_test_authentication();
+
+        if (response === true) {
+            alert('Success');
+        }else{
+            alert('Failure');
+        }
+    }
+
+    const handleRemoveMessageDataClick = async () => {
+        console.log('remove message data');
+        const response = await dev_remove_message_data();
 
         if (response === true) {
             alert('Success');
@@ -73,6 +84,12 @@ const Navbar = ({ isCollapsed, toggleNavbar, collapseNavbar }) => {
               >
                   {/* <FontAwesomeIcon icon={faDev} /> */}
                   {isCollapsed && ' DEV_AUTHENTICATION'}
+              </button>
+              <button onClick={handleRemoveMessageDataClick}
+                  className={`navbar-links-wrapper-btn ${isCollapsed ? 'open' : 'collapsed'}`}
+              >
+                  {/* <FontAwesomeIcon icon={faDev} /> */}
+                  {isCollapsed && ' DEL_MESSAGE_DATA'}
               </button>
               
         </div>

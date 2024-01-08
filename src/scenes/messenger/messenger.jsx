@@ -14,7 +14,7 @@ const Messenger = () => {
     const [isNewMessageCardOpen, setIsNewMessageCardOpen] = useState(false);
     const [conversations, setConversations] = useState([]);
     const [selectedConversationID, setSelectedConversationID] = useState(null);
-    const [selectedConversationType, setSelectedConversationType] = useState(null); // ['DIRECT', 'GROUP', 'OTHER']
+    const [selectedConversationType, setSelectedConversationType] = useState(null); // ['0 (DIRECT)', '1 (GROUP)', 'OTHER']
     const [conversationMessages, setConversationMessages] = useState([]);
     const [conversationHasMessages, setConversationHasMessages] = useState(false);
     const [newMessage, setNewMessage] = useState(''); 
@@ -54,7 +54,7 @@ const Messenger = () => {
         var conversationType = conversations.find(conversation => conversation.conversation_ID === conversation_ID).conversation_Type;
 
         //fetch messages
-        if(conversationType === 'DIRECT'){
+        if(conversationType === 0){
             //fetch direct messages
             const messagesResponse = await get_messages_for_direct_conversation(conversation_ID, 1, 20);
             console.log('messagesResponse:--');
@@ -79,7 +79,7 @@ const Messenger = () => {
             } else {
                 console.error('error fetching messages');
             }
-        } else if (conversationType === 'GROUP'){
+        } else if (conversationType === 1){
             //fetch group messages
         } else {
             console
@@ -170,11 +170,11 @@ const Messenger = () => {
                                 return b.lastMessageTimestamp - a.lastMessageTimestamp;
                             })
                                 .map((conversations) => {
-                                    if (conversations.conversation_Type === 'DIRECT') {
+                                    if (conversations.conversation_Type === 0) {
                                         return (
                                             <ConversationCard
                                                 isSelected={selectedConversationID === conversations.conversation_ID}
-                                                name={conversations.user2_Name}
+                                                name={conversations.conversation_Title}
                                                 type={conversations.conversation_Type}
                                                 recentDate={conversations.lastMessageTimestamp}
                                                 conversation_id={conversations.conversation_ID}
@@ -183,11 +183,11 @@ const Messenger = () => {
                                                 key={conversations.conversation_ID}
                                             />
                                         );
-                                    } else if (message.conversation_Type === 'GROUP') {
+                                    } else if (conversations.conversation_Type === 1) {
                                         return (
                                             <ConversationCard
                                                 isSelected={selectedConversationID === conversations.conversation_ID}
-                                                name={conversations.name}
+                                                name={conversations.conversation_Title}
                                                 type={conversations.conversation_Type}
                                                 recentDate={conversations.lastMessageTimestamp}
                                                 conversation_id={conversations.conversation_ID}

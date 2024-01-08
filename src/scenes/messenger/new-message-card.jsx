@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { create_direct_message_thread, get_users_to_message, get_users_to_message_filtered } from '../../services/messenger-api-service';
+import { create_direct_message_thread, create_group_conversation, get_users_to_message, get_users_to_message_filtered } from '../../services/messenger-api-service';
 
 const NewMessageCard = ({onClose}) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -97,8 +97,25 @@ const NewMessageCard = ({onClose}) => {
             }
 
             //create group conversation
-            
+            const payload = {
+                Creator_ID: sessionStorage.getItem('user_ID'),
+                GroupName: newGroupName,
+                IsPrivate: isPrivate,
+                User_IDs: selectedUsers.map(user => user.user_ID)
+            }
 
+            const response = await create_group_conversation(payload);
+
+            if (response === false){
+                alert("Something went wrong. Please try again.");
+                return;
+            }
+            else{
+                const newGroup = response;
+
+                console.log(newGroup);
+                onClose();
+            }
         }
 
     }

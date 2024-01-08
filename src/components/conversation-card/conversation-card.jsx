@@ -9,7 +9,7 @@ const ConversationCard = ({isSelected, name, type, recentDate, conversation_id, 
     const [hasUnreadMessages, setHasUnreadMessages] = useState(hasUnreadMessagesProp);
 
     useEffect(() => {
-        if (type === 'group'){
+        if (type === 1){
             setIsGroup(true);
         } else {
             setIsGroup(false);
@@ -34,7 +34,9 @@ const ConversationCard = ({isSelected, name, type, recentDate, conversation_id, 
 
     return (
         <div className={`conversation-card ${isSelected ? 'conversation-card-selected' : ''}`} onClick={handleClick}>
-            {isGroup ? <FontAwesomeIcon icon={faUsers} size='2xl' /> : <FontAwesomeIcon icon={faUser} size='2xl' />}
+            <div style={{minWidth: '50px', maxWidth: '50px'}}>
+                {isGroup ? <FontAwesomeIcon icon={faUsers} size='2xl' /> : <FontAwesomeIcon icon={faUser} size='2xl' />}
+            </div>
             <div className="flex flex-col">
                 <span>{name}</span>
             </div>
