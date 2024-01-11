@@ -29,6 +29,7 @@ const Messenger = () => {
   const [selectedConversationID, setSelectedConversationID] = useState(null);
   const [selectedConversationType, setSelectedConversationType] =
     useState(null); // ['0 (DIRECT)', '1 (GROUP)', 'OTHER']
+    const [selectedConversationTitle, setSelectedConversationTitle] = useState(null);
   const [conversationMessages, setConversationMessages] = useState([]);
   const [conversationHasMessages, setConversationHasMessages] = useState(false);
   const [newMessage, setNewMessage] = useState("");
@@ -57,6 +58,14 @@ const Messenger = () => {
         (conversation) => conversation.conversation_ID === conversation_ID
       ).conversation_Type
     );
+
+    setSelectedConversationTitle(
+      conversations.find(
+        (conversation) => conversation.conversation_ID === conversation_ID
+      ).conversation_Title
+    );
+
+      console.log("selectedConversationTitle: " + selectedConversationTitle);
 
     //fetch messages for conversation
     fetchConversationMessages(conversation_ID);
@@ -291,7 +300,7 @@ const Messenger = () => {
           {selectedConversationID !== null ? (
             conversationHasMessages ? (
               <div className="messenger-chat-body-container">
-                <ConversationHeaderInformation conversation_ID={selectedConversationID} conversationType={selectedConversationType}/> //this needs to be re rendered when clicking on a new type of conversation. 
+                <ConversationHeaderInformation key={selectedConversationID} conversationTitle={selectedConversationTitle} conversation_ID={selectedConversationID} conversationType={selectedConversationType}/> 
                 <div className="messenger-messages-container">
                   <div className="messenger-messages-container-chat-list">
                     <div className="messenger-messages-reverse-infinite-scroll">

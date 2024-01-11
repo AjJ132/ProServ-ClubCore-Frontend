@@ -6,7 +6,10 @@ const ProfileHeader = ({ isCollapsed }) => {
     let clubName = sessionStorage.getItem('club_name');
     return (
         <div className='vertical-stack' style={{ opacity: !isCollapsed ? 0 : 1, maxHeight: '225px   ' }}>
-            <div id="profileImage" style={{ backgroundImage: `url(${profileImage})` }}>
+            {/* <div id="profileImage" style={{ backgroundImage: `url(${profileImage})` }}>
+            </div> */}
+            <div id="profileImage">
+                <img src="https://via.placeholder.com/90" alt="user profile" height={90} width={90} className="m-auto"/>
             </div>
             <p className='profile-header-name' style={{ marginBlockStart: 0, marginBlockEnd: 0 }}>{sessionStorage.getItem('first_name')} {sessionStorage.getItem('last_name')}</p>
             <p className='profile-header-team' style={{ marginBlockStart: 0, marginBlockEnd: 0 }}>{clubName}</p>
